@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    environment:
+      PMA_HOST: laravel.crmt4vl92ehu.us-east-1.rds.amazonaws.com
+    ports:
+      - "8090:80"
+
+  myapp:
+    tty: true
+    image: docker.io/bitnami/laravel:7-debian-10
+    environment:
+      - DB_HOST=laravel.crmt4vl92ehu.us-east-1.rds.amazonaws.com
+      - DB_USERNAME=admin
+      - DB_DATABASE=social
+      - DB_PASSWORD=1qaz!QAZ
+    ports:
+      - 3300:3000
+    volumes:
+      - ./:/app
