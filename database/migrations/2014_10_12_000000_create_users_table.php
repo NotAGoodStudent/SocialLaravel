@@ -24,6 +24,9 @@ class CreateUsersTable extends Migration
             $table->integer('followers')->nullable();
             $table->integer('following')->nullable();
             $table->integer('notifications')->nullable();
+            $table->string('bio')->nullable();
+            $table->boolean('is_admin');
+            $table->boolean('is_banned');
             $table->rememberToken();
             $table->timestamps();
         });

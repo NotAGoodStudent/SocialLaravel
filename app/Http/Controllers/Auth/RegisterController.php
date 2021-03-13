@@ -8,6 +8,7 @@ use App\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use function Psy\bin;
 
 class RegisterController extends Controller
 {
@@ -76,6 +77,9 @@ class RegisterController extends Controller
             'followers' => 0,
             'following' => 0,
             'notifications'=> 0,
+            'bio'=> null,
+            'is_admin' => false,
+            'is_banned' => false,
         ]);
     }
 }
