@@ -5,13 +5,14 @@ namespace App;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Notifications\Notification;
 
 class User extends Authenticatable
 {
     use Notifiable;
     public function comments()
     {
-        return $this->hasMany(Comments::class);
+        return $this->hasMany(Comment::class);
     }
 
     public function posts()
@@ -29,13 +30,18 @@ class User extends Authenticatable
         return $this->hasMany(Blocked::class);
     }
 
+    public function notifications()
+    {
+        return $this->hasMany(Notification::class);
+    }
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'username', 'name', 'surname', 'email', 'password', 'followers', 'following',
+        'username', 'name', 'surname', 'email', 'password', 'followers', 'following', 'notifications',
     ];
 
     /**

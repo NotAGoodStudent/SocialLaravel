@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateBlockedsTable extends Migration
+class CreatePostsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,17 @@ class CreateBlockedsTable extends Migration
      */
     public function up()
     {
-        Schema::create('blocked', function (Blueprint $table) {
+        Schema::create('posts', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained('users');
-            $table->foreignId('blocked_id')->constrained('users');;
+            $table->foreignId('owner')->constrained('users');
+            $table->string('content');
+            $table->integer('likes');
+            $table->integer('retweets');
+            $table->foreignId('topic_id')->nullable()->constrained('topics');
             $table->timestamps();
         });
     }
+
 
     /**
      * Reverse the migrations.
@@ -28,6 +32,6 @@ class CreateBlockedsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('blocked');
+        Schema::dropIfExists('posts');
     }
 }

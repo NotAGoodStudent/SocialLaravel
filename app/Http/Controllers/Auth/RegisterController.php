@@ -75,6 +75,7 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']),
             'followers' => 0,
             'following' => 0,
+            'notifications'=> 0,
         ]);
     }
 }

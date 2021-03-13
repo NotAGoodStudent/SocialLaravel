@@ -4,10 +4,15 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Comments extends Model
+class Comment extends Model
 {
     public function comments()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function notification()
+    {
+        return $this->hasMany(Notification::class);
     }
 }

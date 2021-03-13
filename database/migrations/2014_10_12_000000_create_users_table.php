@@ -23,6 +23,7 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->integer('followers')->nullable();
             $table->integer('following')->nullable();
+            $table->integer('notifications')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });
