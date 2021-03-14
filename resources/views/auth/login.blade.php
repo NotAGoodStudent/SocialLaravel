@@ -1,7 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
-    <body style="background-color: #202020">
+    <link href="{{ asset('css/loginStyle.css') }}" rel="stylesheet">
+    <body>
     <div class="m-auto">
         <div class="card" style="background-color: #202020;">
             <form class="box" method="post" action="{{ route('login') }}" style="box-shadow: 0 0 20px rgba(0,0,0, 1);">

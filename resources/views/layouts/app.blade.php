@@ -22,7 +22,7 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
-<body>
+<body style="background-color: #202020">
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-dark bg-dark shadow-sm">
             <div class="container">
@@ -54,15 +54,22 @@
                         @else
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }}
-                                </a>
+                                    <span class="icon">
+                                    <i class="fas fa-user" style="font-weight: bold; margin-right: 3px; color: #2ecc71"></i>
+                                    </span>{{ Auth::user()->name }}</a>
+
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="{{ route('modifyProfile') }}">
+                                        <span class="icon">
+                                        <i class="fas fa-user-circle" style="color:#2ecc71;font-weight: bold; margin-right: 3px"></i>
+                                        </span>My profile</a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
-                                    </a>
+                                        <span class="icon">
+                                        <i class="fas fa-sign-out-alt text-danger" style="font-weight: bold; margin-right: 3px"></i>
+                                        </span>{{ __('Logout') }}</a>
 
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                         @csrf
