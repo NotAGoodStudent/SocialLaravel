@@ -63,7 +63,7 @@
                                     <a class="dropdown-item" href="{{ route('modifyProfile') }}">
                                         <span class="icon">
                                         <i class="fas fa-user-circle" style="color:#2ecc71;font-weight: bold; margin-right: 3px"></i>
-                                        </span>My profile</a>
+                                        </span>Edit profile</a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">

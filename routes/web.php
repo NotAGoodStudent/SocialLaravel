@@ -24,5 +24,6 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 
 Route::middleware('auth')->group(function(){
-    Route::get('/user/updateProfile', "UserController@returnModifyProfileView")->name('modifyProfile');
+    Route::get('/user/updateProfile','UserController@returnModifyProfileView')->name('modifyProfile');
+    Route::patch('/user/updateData/{id}','UserController@updateUserData')->name('updateUserData');
 });
