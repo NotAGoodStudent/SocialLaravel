@@ -38,21 +38,21 @@ class PostController extends Controller
                 $topic = Topic::where('topic', '=', $topicStr)->first();
                 $post->topic_id = $topic->id;
                 $post->save();
-                //return redirect()->route('home');
+                return redirect()->route('home');
             } else {
                 $topic = new Topic();
                 $topic->topic = $topicStr;
                 $topic->save();
                 $post->topic_id = $topic->id;
                 $post->save();
-                //return redirect()->route('home');
+                return redirect()->route('home');
             }
         }
         else
             {
                 $post->topic_id = null;
                 $post->save();
-                //return redirect()->route('home');
+                return redirect()->route('home');
             }
 
 
