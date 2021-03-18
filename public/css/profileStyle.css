@@ -1,0 +1,67 @@
+.content
+{
+    width: 100%;
+    background-color: #060606;
+    border-top: none;
+}
+
+.background_img
+{
+    width: 100%;
+    max-height: 700px;
+}
+
+.profile_img
+{
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    z-index: 1;
+    float: left;
+}
+
+
+.username
+{
+    width: 100%;
+    color: rgba(255,255,255,0.9);
+    display: flex;
+    justify-content: space-around;
+    text-align: center;
+}
+
+.buttonProf
+{
+    width: 100%;
+    display: flex;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    justify-content: space-around;
+}
+
+.button
+{
+    background-color: transparent;
+    text-decoration: none;
+    border: 0;
+    display: block;
+    text-align: center;
+    border: 2px solid #2ecc71;
+    padding: 14px 40px;
+    outline: none;
+    color: white;
+    border-radius: 24px;
+    transition: 0.25s;
+    cursor: pointer;
+    width: 150px;
+}
+.bio
+{
+    color: rgba(255,255,255,0.9);
+}
+.button:hover
+{
+    text-decoration: none;
+    color: white;
+    background: #2ecc71
+}

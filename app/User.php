@@ -35,6 +35,17 @@ class User extends Authenticatable
         return $this->hasMany(Notification::class);
     }
 
+    public function likes()
+    {
+        return $this->hasMany(Like::class);
+    }
+
+    public function retweets()
+    {
+        return $this->hasMany(Retweet::class);
+    }
+
+
     /**
      * The attributes that are mass assignable.
      *

@@ -31,6 +31,10 @@ textarea {
 {
     width: 20%;
 }
+.link
+{
+    cursor: pointer;
+}
 
 .buttonPost  {
     border: 0;

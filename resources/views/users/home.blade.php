@@ -1,12 +1,11 @@
 @extends('layouts.app')
 
 @section('content')
-    <body>
         <link href="{{ asset('css/homeStyle.css') }}" rel="stylesheet">
         <div class="m-auto">
             <div class="thoughts">
                 <div class="textfield_container m-auto">
-                    <img class="mx-auto d-block" style="width: 50px; height: 50px; border-radius: 50%" src="https://pngimage.net/wp-content/uploads/2018/06/no-photo-avatar-png-6.png">
+                    <a class="link" href="{{ route('profile', auth()->user()->id) }}"><img class="mx-auto d-block" style="width: 50px; height: 50px; border-radius: 50%" src="https://pngimage.net/wp-content/uploads/2018/06/no-photo-avatar-png-6.png"></a>
                     <form action="{{ route('makePost', auth()->user()->id)}}" method="post">
                         @csrf
                     <textarea id="txtarea" name="post" class="txt-area mx-auto d-block" placeholder="What are your thoughts {{auth()->user()->username}}?"></textarea>
@@ -47,5 +46,4 @@
                 });
            });
         </script>
-    </body>
 @endsection

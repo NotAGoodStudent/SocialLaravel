@@ -21,6 +21,7 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->integer('posts')->nullable();
             $table->integer('followers')->nullable();
             $table->integer('following')->nullable();
             $table->integer('notifications')->nullable();

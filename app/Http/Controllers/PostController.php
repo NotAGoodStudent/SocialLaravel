@@ -4,11 +4,20 @@ namespace App\Http\Controllers;
 
 use App\Post;
 use App\Topic;
+use App\User;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
 
+    /**
+     * @param Request $request
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    //We get the request and the id of the user, in orfer to check if the post contains a hashtag we split the content and iterate through it
+    //checking if it contains a topic starting with a '#', we are able to do that thanks to the regex, if it does it'll get that record from the database and
+    //assign it to the post->topic_id else it'll create a new topic with the hashtag's name
     public function makePost(Request $request, $id)
     {
         $post = new Post();
@@ -19,14 +28,13 @@ class PostController extends Controller
         $content = explode(" ", $request->input('post'));
         $topicStr = null;
         $found = false;
+        $user = User::findOrFail($id);
         echo count($content);
         foreach ($content as $c)
         {
             echo $c .' ';
             if(preg_match_all('/^\s*#([\p{Pc}\p{N}\p{L}\p{Mn}]{1,50})$/um', $c))
             {
-                echo 'matches';
-                echo $c . 'looping';
                 $topicStr = $c;
                 $found = true;
                 break;
@@ -37,6 +45,8 @@ class PostController extends Controller
             if (Topic::where('topic', '=', $topicStr)->exists()) {
                 $topic = Topic::where('topic', '=', $topicStr)->first();
                 $post->topic_id = $topic->id;
+                $user->posts +=1;
+                $user->save();
                 $post->save();
                 return redirect()->route('home');
             } else {
@@ -45,12 +55,16 @@ class PostController extends Controller
                 $topic->save();
                 $post->topic_id = $topic->id;
                 $post->save();
+                $user->posts +=1;
+                $user->save();
                 return redirect()->route('home');
             }
         }
         else
             {
                 $post->topic_id = null;
+                $user->posts +=1;
+                $user->save();
                 $post->save();
                 return redirect()->route('home');
             }

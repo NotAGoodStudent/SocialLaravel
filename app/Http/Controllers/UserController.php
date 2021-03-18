@@ -14,6 +14,17 @@ class UserController extends Controller
         return view('users.updateProfileData');
     }
 
+    public function returnProfile($id)
+    {
+        $user = User::findOrFail($id);
+        return view('users.profile', compact('user'));
+    }
+
+    /**
+     * @param Request $request
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function updateUserData(Request $request, $id)
     {
         $user = User::findOrFail($id);
