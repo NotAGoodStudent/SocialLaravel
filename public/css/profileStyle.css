@@ -59,9 +59,141 @@
 {
     color: rgba(255,255,255,0.9);
 }
+
 .button:hover
 {
     text-decoration: none;
     color: white;
     background: #2ecc71
 }
+ .options
+{
+    width: 100%;
+    display: flex;
+    margin-top: 50px;
+    justify-content: space-around;
+ }
+
+
+.posts > a
+{
+    width: 100%;
+}
+
+.links
+{
+    background-color: transparent;
+    text-decoration: none;
+    font-size: 25px;
+    padding: 14px 40px;
+    color: #6c757d;
+    border-bottom: 1px solid #060606;
+    transition: all ease 500ms;
+}
+
+.links:hover
+{
+    text-decoration: none;
+    border-bottom: 1px solid #2ecc71;
+    color: #2ecc71;
+
+}
+
+.data
+{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+}
+
+.userData
+{
+    padding-left: 70px;
+}
+
+.post
+{
+    width: 33.3%;
+    padding: 14px 40px;
+    border: 1px solid #6c757d;
+}
+
+.userData > img
+{
+    width: 50px;
+    border-radius: 50%;
+    z-index: 1;
+    float: left;
+}
+ .postUsername
+ {
+     margin-right: 5px;
+     color: white;
+     font-size: 20px;
+ }
+
+ .postContent
+ {
+     color: white;
+     font-size: 15px;
+     text-align: justify;
+ }
+ul.social-network {
+    list-style: none;
+    display: flex;
+    margin-left: 0 !important;
+    padding: 0;
+    justify-content: space-around;
+}
+
+ul.social-network li {
+    display: inline;
+    margin: 0 5px
+}
+
+.social-network a.icoFacebook:hover {
+    background-color: #3B5998
+}
+
+.social-network a.icoTwitter:hover {
+    background-color: #33ccff
+}
+
+.social-network a.icoGoogle:hover {
+    background-color: #BD3518
+}
+
+.social-network a.icoFacebook:hover i,
+.social-network a.icoTwitter:hover i,
+.social-network a.icoGoogle:hover i {
+    color: #fff
+}
+
+a.socialIcon:hover,
+.socialHoverClass {
+    color: #44BCDD
+}
+
+.social-circle li a {
+    display: inline-block;
+    position: relative;
+    margin: 0 auto 0 auto;
+    border-radius: 50%;
+    text-align: center;
+    width: 50px;
+    height: 50px;
+    font-size: 20px
+}
+
+.social-circle li i {
+    margin: 0;
+    line-height: 50px;
+    text-align: center
+}
+
+.social-circle i {
+    color: #fff;
+    transition: all 0.8s;
+}
+

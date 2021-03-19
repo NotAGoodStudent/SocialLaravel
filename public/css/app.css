@@ -4526,6 +4526,7 @@ input[type=button].btn-block {
   align-items: center;
   justify-content: space-between;
   padding: 0.5rem 1rem;
+    background-color: #212121;
 }
 
 .navbar .container,

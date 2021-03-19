@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Post;
 use App\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
@@ -17,7 +18,8 @@ class UserController extends Controller
     public function returnProfile($id)
     {
         $user = User::findOrFail($id);
-        return view('users.profile', compact('user'));
+        $posts = Post::where('owner', '=', $id)->get();
+        return view('users.profile', compact('user', 'posts'));
     }
 
     /**
