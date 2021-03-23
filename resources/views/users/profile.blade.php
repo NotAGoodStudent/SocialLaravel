@@ -28,7 +28,21 @@
                     {{--{{$user->created_at->diffForHumans()}}--}}
 
                     <div class="editCont">
+                        @if(Auth::user()->id == $user->id)
                     <a class="button m-auto" href="{{ route('modifyProfile') }}">Edit</a>
+                        @endif
+                        @if(count($following) > 0)
+                        @foreach($following as $f)
+                            @if($f->user_id == $user->id)
+                                <a class="followButton m-auto" href="{{ route('modifyProfile') }}">Unfollow</a>
+                                @break
+                            @else
+                                <a class="followButton m-auto" href="{{ route('modifyProfile') }}">Follow</a>
+                            @endif
+                        @endforeach
+                            @elseif(Auth::user()->id != $user->id)
+                                <a class="followButton m-auto" href="{{ route('modifyProfile') }}">Follow</a>
+                            @endif
                     </div>
                 </div>
                 <hr class="text-muted" style=" margin-top: 50px;border: 1px solid; text-align: center">
@@ -54,9 +68,9 @@
                             </div>
                             <div class="col-md-12">
                                 <ul class="social-network social-circle">
-                                    <li><a href="#" class="icoFacebook" title="Facebook"><i class="fab fa-facebook-f"></i></a></li>
-                                    <li><a href="#" class="icoTwitter" title="Twitter"><i class="fab fa-twitter"></i></a></li>
-                                    <li><a href="#" class="icoGoogle" title="Google +"><i class="fab fa-google-plus"></i></a></li>
+                                    <li><a class="comment"><i class="far fa-comment"></i></a></li>
+                                    <li><a class="retweet"><i class="fas fa-retweet"></i></a></li>
+                                    <li><a class="like" id="{{$p->id}}" onclick="like({{$p->id}})"></a></li>
                                 </ul>
                             </div>
                         </div>
@@ -65,4 +79,10 @@
             </div>
         </div>
     </div>
+    <script>
+        function like(id){
+            var post = document.getElementById(id);
+            post.classList.toggle('is-liked');
+        }
+    </script>
 @endsection

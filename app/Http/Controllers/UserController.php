@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Following;
 use App\Post;
 use App\User;
 use Illuminate\Support\Facades\Auth;
@@ -19,7 +20,8 @@ class UserController extends Controller
     {
         $user = User::findOrFail($id);
         $posts = Post::where('owner', '=', $id)->get();
-        return view('users.profile', compact('user', 'posts'));
+        $following = Following::where('user_id', '=', Auth::user()->id)->get();
+        return view('users.profile', compact('user', 'posts', 'following'));
     }
 
     /**

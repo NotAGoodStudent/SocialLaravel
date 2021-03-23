@@ -55,6 +55,31 @@
     cursor: pointer;
     width: 150px;
 }
+
+.followButton
+{
+    background-color: transparent;
+    text-decoration: none;
+    border: 0;
+    display: block;
+    text-align: center;
+    border: 2px solid #007FFF;
+    padding: 14px 40px;
+    outline: none;
+    color: white;
+    border-radius: 24px;
+    transition: 0.25s;
+    cursor: pointer;
+    width: 150px;
+}
+
+.followButton:hover
+{
+    text-decoration: none;
+    color: white;
+    background: #007FFF;
+}
+
 .bio
 {
     color: rgba(255,255,255,0.9);
@@ -152,29 +177,6 @@ ul.social-network li {
     margin: 0 5px
 }
 
-.social-network a.icoFacebook:hover {
-    background-color: #3B5998
-}
-
-.social-network a.icoTwitter:hover {
-    background-color: #33ccff
-}
-
-.social-network a.icoGoogle:hover {
-    background-color: #BD3518
-}
-
-.social-network a.icoFacebook:hover i,
-.social-network a.icoTwitter:hover i,
-.social-network a.icoGoogle:hover i {
-    color: #fff
-}
-
-a.socialIcon:hover,
-.socialHoverClass {
-    color: #44BCDD
-}
-
 .social-circle li a {
     display: inline-block;
     position: relative;
@@ -183,7 +185,7 @@ a.socialIcon:hover,
     text-align: center;
     width: 50px;
     height: 50px;
-    font-size: 20px
+    font-size: 15px;
 }
 
 .social-circle li i {
@@ -192,8 +194,41 @@ a.socialIcon:hover,
     text-align: center
 }
 
-.social-circle i {
-    color: #fff;
-    transition: all 0.8s;
+.comment
+{
+    color: #6c757d;
+}
+
+.comment:hover i{
+    color: #007FFF;
+}
+.retweet i
+{
+    color: #6c757d;
+}
+
+.retweet:hover i{
+    color: #2ecc71;
+}
+.like{
+    height: 50px;
+    width: 50px;
+    background-image: url('http://abs.twimg.com/a/1517453990/img/animations/web_heart_animation_edge.png');
+    background-size: 1450px 50px;
+    cursor: pointer;
+}
+.like:hover{
+    background-position: 3.571428571428571%;
+}
+.like.is-liked{
+    animation: like 1s steps(28) forwards;
+}
+@keyframes like {
+    0%{
+        background-position: 0 0;
+    }
+    100%{
+        background-position: right;
+    }
 }
 
