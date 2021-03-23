@@ -199,12 +199,21 @@ ul.social-network li {
     color: #6c757d;
 }
 
+.comment:hover
+{
+    background-color: #007FFF1a;
+}
+
 .comment:hover i{
     color: #007FFF;
 }
 .retweet i
 {
     color: #6c757d;
+}
+
+.retweet:hover {
+    background-color: #2ecc711a;
 }
 
 .retweet:hover i{
@@ -219,6 +228,7 @@ ul.social-network li {
 }
 .like:hover{
     background-position: 3.571428571428571%;
+    background-color: #ff00001a;
 }
 .like.is-liked{
     animation: like 1s steps(28) forwards;
