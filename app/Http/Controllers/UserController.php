@@ -37,6 +37,14 @@ class UserController extends Controller
         return view('users.profile', compact('user'));
     }
 
+    public function unfollowUser($id, $id2)
+    {
+        Following::where('user_id', '=', $id)->where('followed_id', '=', $id2)->delete();
+        Follower::where('user_id', '=', $id2)->where('follower_id', '=', $id)->delete();
+        $user = User::findOrFail($id2);
+        return view('users.profile', compact('user'));
+    }
+
     /**
      * @param Request $request
      * @param $id

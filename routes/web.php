@@ -29,4 +29,5 @@ Route::middleware('auth')->group(function(){
     Route::post('/home/post/{id}', 'PostController@makePost')->name('makePost');
     Route::get('/user/profile/{id}', "UserController@returnProfile")->name('profile');
     Route::get('/user/follow/{id}/{id2}', 'UserController@followUser')->name('follow');
+    Route::get('/user/unfollow/{id}/{id2}', 'UserController@unfollowUser')->name('unfollow');
 });

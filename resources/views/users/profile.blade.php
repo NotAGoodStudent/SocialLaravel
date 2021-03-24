@@ -31,15 +31,20 @@
                         @if(Auth::user()->id == $user->id)
                             <a class="button m-auto" href="{{ route('modifyProfile') }}">Edit</a>
                         @endif
-                        @if(count($user->following) > 0)
-                        @foreach($user->following as $f)
-                            @if($f->user_id == $user->id)
-                                <a class="followButton m-auto" href="{{ route('modifyProfile') }}">Unfollow</a>
-                                @break
-                            @else
-                                <a class="followButton m-auto" href="{{ route('modifyProfile') }}">Follow</a>
-                            @endif
-                        @endforeach
+                        @if(count(Auth::user()->following) > 0 && Auth::user()->id != $user->id)
+                            {{$exists = false}}
+                            @foreach(Auth::user()->following as $f)
+                                @if($f->id == $user->id)
+                                    <a class="followButton m-auto" href="{{route('unfollow', [Auth::user()->id ,$user->id]) }}">Unfollow</a>
+                                        {{$exists = false}}
+                                    @break
+                                @else
+                                        {{$exists = true}}
+                                @endif
+                            @endforeach
+                            @if($exists == true)
+                                    <a class="followButton m-auto" href="{{route('follow', [Auth::user()->id ,$user->id]) }}">Follow</a>
+                                @endif
                             @elseif(Auth::user()->id != $user->id)
                                 <a class="followButton m-auto" href="{{route('follow', [Auth::user()->id ,$user->id]) }}">Follow</a>
                             @endif
