@@ -60,7 +60,7 @@
 
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('modifyProfile') }}">
+                                    <a class="dropdown-item" href="{{ route('profile', auth()->user()->username) }}">
                                         <span class="icon">
                                         <i class="fas fa-user-circle" style="color:#2ecc71;font-weight: bold; margin-right: 3px"></i>
                                         </span>Edit profile</a>

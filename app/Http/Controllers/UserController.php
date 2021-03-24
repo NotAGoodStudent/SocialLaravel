@@ -12,14 +12,14 @@ use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
-    public function returnModifyProfileView()
+    public function returnModifyProfileView($username)
     {
         return view('users.updateProfileData');
     }
 
-    public function returnProfile($id)
+    public function returnProfile($username)
     {
-        $user = User::findOrFail($id);
+        $user = User::where('username', '=', $username)->first();
         return view('users.profile', compact('user'));
     }
 
@@ -34,7 +34,7 @@ class UserController extends Controller
         $follower->user_id = $id2;
         $follower->follower_id = $id;
         $follower->save();
-        return view('users.profile', compact('user'));
+        return redirect()->route('profile',[$user->username]);
     }
 
     public function unfollowUser($id, $id2)
@@ -42,7 +42,7 @@ class UserController extends Controller
         Following::where('user_id', '=', $id)->where('followed_id', '=', $id2)->delete();
         Follower::where('user_id', '=', $id2)->where('follower_id', '=', $id)->delete();
         $user = User::findOrFail($id2);
-        return view('users.profile', compact('user'));
+        return redirect()->route('profile',[$user->username]);
     }
 
     /**
