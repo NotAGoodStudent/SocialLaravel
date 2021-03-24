@@ -29,7 +29,7 @@
 
                     <div class="editCont">
                         @if(Auth::user()->id == $user->id)
-                            <a class="button m-auto" href="{{ route('modifyProfile', Auth::user()->username) }}">Edit</a>
+                            <a class="button m-auto" href="{{ route('modifyProfile')}}">Edit</a>
                         @endif
                         @if(count(Auth::user()->following) > 0 && Auth::user()->id != $user->id)
                             {{$exists = false}}
@@ -53,13 +53,13 @@
                 <hr class="text-muted" style=" margin-top: 50px;border: 1px solid; text-align: center">
                 <div class="options">
                     <div class="posts">
-                        <a class="links m-auto" href="{{ route('modifyProfile', Auth::user()->username) }}">Posts</a>
+                        <a class="links m-auto" href="{{ route('modifyProfile')}}">Posts</a>
                     </div>
                     <div class="likes">
-                        <a class="links m-auto" href="{{ route('modifyProfile', Auth::user()->username) }}">Likes</a>
+                        <a class="links m-auto" href="{{ route('modifyProfile')}}">Likes</a>
                     </div>
                     <div class="retweets">
-                        <a class="links m-auto" href="{{ route('modifyProfile', Auth::user()->username)}}">Retweets</a>
+                        <a class="links m-auto" href="{{ route('modifyProfile')}}">Retweets</a>
                     </div>
                 </div>
                 <hr class="text-muted" style=" margin-top: 50px;border: 1px solid; text-align: center">

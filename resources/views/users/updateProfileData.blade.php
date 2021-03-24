@@ -4,7 +4,7 @@
     <body>
     <div class="m-auto">
         <div class="card" style="background-color: #202020;">
-            <form class="box" method="post" action="{{ route('updateUserData', auth()->user()->username) }}">
+            <form class="box" method="post" action="{{ route('updateUserData', auth()->user()->id) }}">
             @csrf
                 @method('PATCH')
                 <h2 class="title">Edit Profile</h2>

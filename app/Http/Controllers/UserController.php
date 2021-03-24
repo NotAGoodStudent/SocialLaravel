@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
-    public function returnModifyProfileView($username)
+    public function returnModifyProfileView()
     {
         return view('users.updateProfileData');
     }
