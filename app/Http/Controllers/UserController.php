@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Follower;
 use App\Following;
 use App\Post;
 use App\User;
@@ -19,9 +20,21 @@ class UserController extends Controller
     public function returnProfile($id)
     {
         $user = User::findOrFail($id);
-        $posts = Post::where('owner', '=', $id)->get();
-        $following = Following::where('user_id', '=', Auth::user()->id)->get();
-        return view('users.profile', compact('user', 'posts', 'following'));
+        return view('users.profile', compact('user'));
+    }
+
+    public function followUser($id, $id2)
+    {
+        $user = User::findOrFail($id2);
+        $follow = new Following();
+        $follow->user_id = $id;
+        $follow->followed_id = $id2;
+        $follow->save();
+        $follower = new Follower();
+        $follower->user_id = $id2;
+        $follower->follower_id = $id;
+        $follower->save();
+        return view('users.profile', compact('user'));
     }
 
     /**

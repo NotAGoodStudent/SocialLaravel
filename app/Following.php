@@ -6,7 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Following extends Model
 {
-    public function following()
+    protected $table = 'following';
+    public function user()
     {
         return $this->belongsTo(User::class);
     }

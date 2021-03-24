@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePostsTable extends Migration
+class CreateFollowingTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,13 @@ class CreatePostsTable extends Migration
      */
     public function up()
     {
-        Schema::create('posts', function (Blueprint $table) {
+        Schema::create('following', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('owner')->constrained('users');
-            $table->string('content');
-            $table->foreignId('topic_id')->nullable()->constrained('topics');
+            $table->foreignId('user_id')->constrained('users');
+            $table->foreignId('followed_id')->constrained('users');
             $table->timestamps();
         });
     }
-
 
     /**
      * Reverse the migrations.
@@ -30,6 +28,6 @@ class CreatePostsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('posts');
+        Schema::dropIfExists('followings');
     }
 }

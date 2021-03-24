@@ -23,12 +23,9 @@ class PostController extends Controller
         $post = new Post();
         $post->owner = $id;
         $post->content = $request->input('post');
-        $post->likes = 0;
-        $post->retweets = 0;
         $content = explode(" ", $request->input('post'));
         $topicStr = null;
         $found = false;
-        $user = User::findOrFail($id);
         echo count($content);
         foreach ($content as $c)
         {
@@ -45,8 +42,6 @@ class PostController extends Controller
             if (Topic::where('topic', '=', $topicStr)->exists()) {
                 $topic = Topic::where('topic', '=', $topicStr)->first();
                 $post->topic_id = $topic->id;
-                $user->posts +=1;
-                $user->save();
                 $post->save();
                 return redirect()->route('home');
             } else {
@@ -55,16 +50,12 @@ class PostController extends Controller
                 $topic->save();
                 $post->topic_id = $topic->id;
                 $post->save();
-                $user->posts +=1;
-                $user->save();
                 return redirect()->route('home');
             }
         }
         else
             {
                 $post->topic_id = null;
-                $user->posts +=1;
-                $user->save();
                 $post->save();
                 return redirect()->route('home');
             }

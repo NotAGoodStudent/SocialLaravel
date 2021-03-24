@@ -17,13 +17,20 @@ class User extends Authenticatable
 
     public function posts()
     {
-        return $this->hasMany(Post::class);
+        return $this->hasMany(Post::class, 'owner');
     }
 
     public function following()
     {
-        return $this->hasMany(Following::class);
+        return $this->belongsToMany(User::class, 'following', 'user_id', 'followed_id');
     }
+
+
+    public function followers()
+    {
+        return $this->belongsToMany(User::class, 'followers', 'user_id', 'follower_id');
+    }
+
 
     public function blocked()
     {
@@ -37,7 +44,7 @@ class User extends Authenticatable
 
     public function likes()
     {
-        return $this->hasMany(Like::class);
+        return $this->hasMany(like::class);
     }
 
     public function retweets()

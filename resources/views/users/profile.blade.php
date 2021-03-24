@@ -7,9 +7,9 @@
             <div class="content m-auto">
                 <div class="username">
                     <h2 class="m-auto">{{$user->username}}</h2>
-                    <h5 class="text-muted m-auto"><span style="color: white">{{$user->posts}}</span> Posts</h5>
-                    <h5 class="text-muted m-auto"><span style="color: white">{{$user->followers}}</span> Followers</h5>
-                    <h5 class="text-muted m-auto"><span style="color: white">{{$user->following}}</span> Following</h5>
+                    <h5 class="text-muted m-auto"><span style="color: white">{{count($user->posts)}}</span> Posts</h5>
+                    <h5 class="text-muted m-auto"><span style="color: white">{{count($user->followers)}}</span> Followers</h5>
+                    <h5 class="text-muted m-auto"><span style="color: white">{{count($user->following)}}</span> Following</h5>
                     <img class="profile_img m-auto" src="https://pngimage.net/wp-content/uploads/2018/06/no-photo-avatar-png-6.png" alt="">
                 </div>
                 <img class="background_img" src="https://steamuserimages-a.akamaihd.net/ugc/940586530515504757/CDDE77CB810474E1C07B945E40AE4713141AFD76/" alt="">
@@ -29,10 +29,10 @@
 
                     <div class="editCont">
                         @if(Auth::user()->id == $user->id)
-                    <a class="button m-auto" href="{{ route('modifyProfile') }}">Edit</a>
+                            <a class="button m-auto" href="{{ route('modifyProfile') }}">Edit</a>
                         @endif
-                        @if(count($following) > 0)
-                        @foreach($following as $f)
+                        @if(count($user->following) > 0)
+                        @foreach($user->following as $f)
                             @if($f->user_id == $user->id)
                                 <a class="followButton m-auto" href="{{ route('modifyProfile') }}">Unfollow</a>
                                 @break
@@ -41,7 +41,7 @@
                             @endif
                         @endforeach
                             @elseif(Auth::user()->id != $user->id)
-                                <a class="followButton m-auto" href="{{ route('modifyProfile') }}">Follow</a>
+                                <a class="followButton m-auto" href="{{route('follow', [Auth::user()->id ,$user->id]) }}">Follow</a>
                             @endif
                     </div>
                 </div>
@@ -59,7 +59,7 @@
                 </div>
                 <hr class="text-muted" style=" margin-top: 50px;border: 1px solid; text-align: center">
                 <div class="data m-auto col-md-12">
-                    @foreach($posts as $p)
+                    @foreach($user->posts as $p)
                         <div class="post m-auto">
                             <div class="userData">
                                 <img src="https://pngimage.net/wp-content/uploads/2018/06/no-photo-avatar-png-6.png" alt="">
