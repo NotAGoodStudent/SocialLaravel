@@ -68,14 +68,16 @@
                         <div class="post m-auto">
                             <div class="userData">
                                 <img src="https://pngimage.net/wp-content/uploads/2018/06/no-photo-avatar-png-6.png" alt="">
-                                <p class="postUsername">{{$user->username}} <span class="text-muted" style="font-size: 15px">{{'@'.$user->username}} . {{$p->created_at->diffForHumans()}}</span></p>
-                                <p class="postContent">{{$p->content}}</p>
+                                <div class="postText">
+                                    <p class="postUsername">{{$user->username}} <span class="text-muted" style="font-size: 15px">{{'@'.$user->username}} . {{$p->created_at->diffForHumans()}}</span></p>
+                                    <p class="postContent">{{$p->content}}</p>
+                                </div>
                             </div>
                             <div class="col-md-12">
                                 <ul class="social-network social-circle">
                                     <li><a class="comment"><i class="far fa-comment"></i></a></li>
                                     <li><a class="retweet"><i class="fas fa-retweet"></i></a></li>
-                                    <li><a class="like" id="{{$p->id}}" onclick="like({{$p->id}})"></a></li>
+                                    <li><a class="like" id="{{$p->id}}" onclick="like({{$p->id}}, {{Auth::user()->id}})"></a></li>
                                 </ul>
                             </div>
                         </div>
@@ -85,9 +87,27 @@
         </div>
     </div>
     <script>
-        function like(id){
+        function like(id, uid){
             var post = document.getElementById(id);
-            post.classList.toggle('is-liked');
+            if(post.classList == 'is-liked')
+            {
+                $.ajax({
+                    type: 'POST',
+                    data: {
+                        user_id: uid,
+                        post_id: id
+                    },
+                    url: '/post/like/{id}/{uid}',
+                    success: function (response){
+                        post.classList.toggle('like');
+                        alert('yep');
+                    },
+                    error: function(){
+                        console.log('npe')
+                    }
+                });
+            }
+            else post.classList.toggle('is-liked');
         }
     </script>
 @endsection

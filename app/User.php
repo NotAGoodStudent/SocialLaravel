@@ -17,7 +17,7 @@ class User extends Authenticatable
 
     public function posts()
     {
-        return $this->hasMany(Post::class, 'owner');
+        return $this->hasMany(Post::class, 'owner')->orderBy('posts.created_at');
     }
 
     public function following()
