@@ -18,7 +18,7 @@
                     <h5 class="m-auto text-muted">
                         <span class="cal">
                         <i class="fas fa-calendar-alt text-muted" style="font-weight: bold; margin-right: 3px"></i>
-                        Joined <span style="color: white">{{$user->created_at->format('m/d/Y')}}</span>
+                        Joined <span style="color: white">{{$user->created_at->format('d/m/Y')}}</span>
                      </span></h5>
                     </div>
                     <div class="bioCont">
@@ -88,26 +88,23 @@
     </div>
     <script>
         function like(id, uid){
-            var post = document.getElementById(id);
-            if(post.classList == 'is-liked')
+            if($("#"+id).hasClass('is-liked'))
             {
+                $("#"+id).toggleClass('like');
+            }
+            else{
+                console.log('not liked');
                 $.ajax({
-                    type: 'POST',
-                    data: {
-                        user_id: uid,
-                        post_id: id
-                    },
-                    url: '/post/like/{id}/{uid}',
-                    success: function (response){
-                        post.classList.toggle('like');
-                        alert('yep');
+                    url: 'http://localhost:3300/post/like/'+id,
+                    success: function (data){
+                        $("#"+id).toggleClass('is-liked');
+                        console.log('here');
                     },
                     error: function(){
-                        console.log('npe')
+                        console.log('here ERR');
                     }
                 });
             }
-            else post.classList.toggle('is-liked');
         }
     </script>
 @endsection
