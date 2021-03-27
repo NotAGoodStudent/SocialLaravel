@@ -28,7 +28,10 @@ Route::middleware('auth')->group(function(){
     Route::patch('/user/updateData/{id}','UserController@updateUserData')->name('updateUserData');
     Route::post('/home/post/{id}', 'PostController@makePost')->name('makePost');
     Route::get('/user/profile/{username}', "UserController@returnProfile")->name('profile');
-    Route::get('/user/follow/{id}/{id2}', 'UserController@followUser')->name('follow');
-    Route::get('/user/unfollow/{id}/{id2}', 'UserController@unfollowUser')->name('unfollow');
+    Route::get('/user/follow/{id2}', 'UserController@followUser')->name('follow');
+    Route::get('/user/unfollow/{id2}', 'UserController@unfollowUser')->name('unfollow');
     Route::get('/post/like/{post_id}', 'LikeController@likePost')->name('like');
+    Route::get('/post/dislike/{post_id}', 'LikeController@dislikePost')->name('dislike');
+    Route::get('/post/retweet/{post_id}', 'RetweetController@retweetPost')->name('retweet');
+    Route::get('/post/unretweet/{post_id}', 'RetweetController@unretweetPost')->name('unretweet');
 });

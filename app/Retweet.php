@@ -4,9 +4,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class retweet extends Model
+class Retweet extends Model
 {
-    public function retweets()
+    public function user()
     {
         return $this->hasOne(User::class);
     }

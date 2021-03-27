@@ -12,9 +12,14 @@ class Post extends Model
         return $this->belongsTo(User::class, 'owner');
     }
 
-    public function like()
+    public function likes()
     {
         return $this->hasMany(Like::class, 'post_id');
+    }
+
+    public function retweets()
+    {
+        return $this->hasMany(Retweet::class, 'post_id');
     }
 
     public function notification()

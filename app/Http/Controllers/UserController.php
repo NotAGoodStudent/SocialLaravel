@@ -23,26 +23,23 @@ class UserController extends Controller
         return view('users.profile', compact('user'));
     }
 
-    public function followUser($id, $id2)
+    public function followUser($id2)
     {
         $user = User::findOrFail($id2);
         $follow = new Following();
-        $follow->user_id = $id;
+        $follow->user_id = auth()->user()->id;
         $follow->followed_id = $id2;
         $follow->save();
         $follower = new Follower();
         $follower->user_id = $id2;
-        $follower->follower_id = $id;
+        $follower->follower_id = auth()->user()->id;
         $follower->save();
-        return redirect()->route('profile',[$user->username]);
     }
 
-    public function unfollowUser($id, $id2)
+    public function unfollowUser($id2)
     {
-        Following::where('user_id', '=', $id)->where('followed_id', '=', $id2)->delete();
-        Follower::where('user_id', '=', $id2)->where('follower_id', '=', $id)->delete();
-        $user = User::findOrFail($id2);
-        return redirect()->route('profile',[$user->username]);
+        Following::where('user_id', '=', auth()->user()->id)->where('followed_id', '=', $id2)->delete();
+        Follower::where('user_id', '=', $id2)->where('follower_id', '=', auth()->user()->id)->delete();
     }
 
     /**

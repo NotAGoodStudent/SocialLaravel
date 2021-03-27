@@ -17,4 +17,9 @@ class LikeController extends Controller
         $like->post_id = $post_id;
         $like->save();
     }
+
+    public function dislikePost($post_id)
+    {
+        Like::where('user_id', '=', auth()->user()->id)->where('post_id', '=', $post_id)->delete();
+    }
 }
