@@ -32,15 +32,17 @@
                             <a class="button m-auto" href="{{ route('modifyProfile')}}">Edit</a>
                         @endif
                         @if(count(Auth::user()->following) > 0 && Auth::user()->id != $user->id)
-                            {{$exists = false}}
+                            @php
+                            $exists = true;
+                             @endphp
                             @foreach(Auth::user()->following as $f)
                                 @if($f->id == $user->id)
                                     <a class="is-followed m-auto" id="f{{$user->id}}" onclick="follow({{$user->id}})">Following</a>
-                                        {{$exists = false}}
+                                        @php
+                                            $exists = false;
+                                        @endphp
                                     @break
-                                @else
-                                        {{$exists = true}}
-                                @endif
+                                    @endif
                             @endforeach
                             @if($exists == true)
                                     <a class="followButton m-auto" id="f{{$user->id}}" onclick="follow({{$user->id}})">Follow</a>
@@ -89,12 +91,12 @@
                                                 @endphp
                                                 @break
                                             @endif
-                                            @if(!$retweeted)
-                                                    <li><a class="retweet" id="r{{$p->id}}" onclick="retweet({{$p->id}})"><i class="fas fa-retweet"></i></a></li>
-                                            @endif
                                         @endforeach
+                                        @if(!$retweeted)
+                                            <li><a class="retweet" id="r{{$p->id}}" onclick="retweet({{$p->id}})"><i class="fas fa-retweet"></i></a></li>
+                                        @endif
                                     @else
-                                        <li><a class="retweet" id="r{{$p->id}}" onclick="retweet({{$p->id}})"><i class="fas fa-retweet"></i></a></li>
+                                        <li><a class="retweet" id="r{{$p->id}}" onclick="retweet({{$p->id}})"><span class="text-muted">{{count($p->retweets)}}</span><i class="fas fa-retweet"></i></a></li>
                                     @endif
 
                                     <!--CHECK IF POST IS LIKED BY CURRENT USER-->
@@ -110,10 +112,10 @@
                                                 @endphp
                                             @break
                                         @endif
-                                        @if(!$liked)
-                                                <li><a class="like" id="l{{$p->id}}" onclick="like({{$p->id}})"></a></li>
-                                            @endif
                                     @endforeach
+                                        @if(!$liked)
+                                            <li><a class="like" id="l{{$p->id}}" onclick="like({{$p->id}})"></a></li>
+                                        @endif
                                     @else
                                         <li><a class="like" id="l{{$p->id}}" onclick="like({{$p->id}})"></a></li>
                                     @endif
