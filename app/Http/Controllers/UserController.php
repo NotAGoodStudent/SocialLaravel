@@ -20,7 +20,9 @@ class UserController extends Controller
     public function returnProfile($username)
     {
         $user = User::where('username', '=', $username)->first();
-        return view('users.profile', compact('user'));
+        $posts = Post::all();
+        $users = User::all();
+        return view('users.profile', compact('user', 'posts', 'users'));
     }
 
     public function followUser($id2)
