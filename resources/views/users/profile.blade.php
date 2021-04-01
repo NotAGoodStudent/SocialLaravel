@@ -61,7 +61,7 @@
                         <a class="links m-auto" style="cursor: pointer" onclick="showLikes()">Likes</a>
                     </div>
                     <div class="retweets">
-                        <a class="links m-auto" href="{{ route('modifyProfile')}}">Retweets</a>
+                        <a class="links m-auto" style="cursor: pointer" onclick="showRetweets()">Retweets</a>
                     </div>
                 </div>
                 <hr class="text-muted" style=" margin-top: 50px;border: 1px solid; text-align: center">
@@ -85,7 +85,7 @@
                                         @endphp
                                         @foreach($p->retweets as $r)
                                             @if(auth()->user()->id == $r->user_id)
-                                                <li><a class="is-retweeted" id="r{{$p->id}}" onclick="retweet({{$p->id}})"><i class="fas fa-retweet"></i></a></li>
+                                                <li><a class="is-retweeted" id="rp{{$p->id}}" onclick="retweetP({{$p->id}})"><i class="fas fa-retweet"></i></a></li>
                                                 @php
                                                     $retweeted = true;
                                                 @endphp
@@ -93,10 +93,10 @@
                                             @endif
                                         @endforeach
                                         @if(!$retweeted)
-                                            <li><a class="retweet" id="r{{$p->id}}" onclick="retweet({{$p->id}})"><i class="fas fa-retweet"></i></a></li>
+                                            <li><a class="retweet" id="rp{{$p->id}}" onclick="retweetP({{$p->id}})"><i class="fas fa-retweet"></i></a></li>
                                         @endif
                                     @else
-                                        <li><a class="retweet" id="r{{$p->id}}" onclick="retweet({{$p->id}})"><span class="text-muted">{{count($p->retweets)}}</span><i class="fas fa-retweet"></i></a></li>
+                                        <li><a class="retweet" id="rp{{$p->id}}" onclick="retweetP({{$p->id}})"><span class="text-muted">{{count($p->retweets)}}</span><i class="fas fa-retweet"></i></a></li>
                                     @endif
 
                                     <!--CHECK IF POST IS LIKED BY CURRENT USER-->
@@ -106,7 +106,7 @@
                                             @endphp
                                     @foreach($p->likes as $l)
                                         @if(auth()->user()->id == $l->user_id)
-                                        <li><a class="is-liked" id="l{{$p->id}}" onclick="like({{$p->id}})"></a></li>
+                                        <li><a class="is-liked" id="lp{{$p->id}}" onclick="likeP({{$p->id}})"></a></li>
                                                 @php
                                                     $liked = true;
                                                 @endphp
@@ -114,10 +114,10 @@
                                         @endif
                                     @endforeach
                                         @if(!$liked)
-                                            <li><a class="like" id="l{{$p->id}}" onclick="like({{$p->id}})"></a></li>
+                                            <li><a class="like" id="lp{{$p->id}}" onclick="likeP({{$p->id}})"></a></li>
                                         @endif
                                     @else
-                                        <li><a class="like" id="l{{$p->id}}" onclick="like({{$p->id}})"></a></li>
+                                        <li><a class="like" id="lp{{$p->id}}" onclick="likeP({{$p->id}})"></a></li>
                                     @endif
 
                                 </ul>
@@ -161,7 +161,7 @@
                                                     @endphp
                                                     @foreach($p->retweets as $r)
                                                         @if(auth()->user()->id == $r->user_id)
-                                                            <li><a class="is-retweeted" id="r{{$p->id}}" onclick="retweet({{$p->id}})"><i class="fas fa-retweet"></i></a></li>
+                                                            <li><a class="is-retweeted" id="rl{{$p->id}}" onclick="retweetL({{$p->id}})"><i class="fas fa-retweet"></i></a></li>
                                                             @php
                                                                 $retweeted = true;
                                                             @endphp
@@ -169,12 +169,12 @@
                                                         @endif
                                                     @endforeach
                                                     @if(!$retweeted)
-                                                        <li><a class="retweet" id="r{{$p->id}}" onclick="retweet({{$p->id}})"><i class="fas fa-retweet"></i></a></li>
+                                                        <li><a class="retweet" id="rl{{$p->id}}" onclick="retweetL({{$p->id}})"><i class="fas fa-retweet"></i></a></li>
                                                     @endif
                                                 @else
-                                                    <li><a class="retweet" id="r{{$p->id}}" onclick="retweet({{$p->id}})"><span class="text-muted">{{count($p->retweets)}}</span><i class="fas fa-retweet"></i></a></li>
+                                                    <li><a class="retweet" id="rl{{$p->id}}" onclick="retweetL({{$p->id}})"><span class="text-muted">{{count($p->retweets)}}</span><i class="fas fa-retweet"></i></a></li>
                                                 @endif
-                                                        <li><a class="is-liked" id="l{{$p->id}}" onclick="like({{$p->id}})"></a></li>
+                                                        <li><a class="is-liked" id="ll{{$p->id}}" onclick="likeL({{$p->id}})"></a></li>
                                                         @endif
                                                         @endforeach
                                     @endif
@@ -184,6 +184,65 @@
                     @endforeach
                 </div>
             </div>
+<!--            ONLY VISIBLE WHEN RETWEET MENU IS SELECTED-->
+
+            <div class="data m-auto col-md-12" id="myPostsR" style="display: none">
+            @foreach($posts as $p)
+
+                <!--CHECK IF POST IS LIKED BY CURRENT USER-->
+                    @if(count($p->retweets) > 0)
+                        @php
+                            $retweeted = false;
+                        @endphp
+
+                        @foreach($p->retweets as $r)
+                            @if($r->user_id == auth()->user()->id)
+                                <div class="postR m-auto" style="display: none">
+                                    <div class="userData">
+                                        <img src="https://pngimage.net/wp-content/uploads/2018/06/no-photo-avatar-png-6.png" alt="">
+                                        <div class="postText">
+                                            @foreach($users as $us)
+                                                @foreach($us->posts as $po)
+                                                    @if($po->id == $r->post_id)
+                                                        <p class="postUsername">{{$us->username}} <span class="text-muted" style="font-size: 15px">{{'@'.$us->username}} . {{$po->created_at->diffForHumans()}}</span></p>
+                                                        <p class="postContent">{{$p->content}}</p>
+                                                    @endif
+                                                @endforeach
+                                            @endforeach
+                                        </div>
+                                    </div>
+                                    <div class="hideIconsR col-md-12" style="display: none">
+                                        <ul class="social-network social-circle">
+                                            <li><a class="comment"><i class="far fa-comment"></i></a></li>
+                                            <li><a class="is-retweeted" id="rr{{$p->id}}" onclick="retweetR({{$p->id}})"><span class="text-muted">{{count($p->retweets)}}</span><i class="fas fa-retweet"></i></a></li>
+                                            @if(count($p->likes) > 0)
+                                                @php
+                                                    $liked = false;
+                                                @endphp
+                                                @foreach($p->likes as $l)
+                                                    @if(auth()->user()->id == $l->user_id)
+                                                        <li><a class="is-liked" id="lr{{$p->id}}" onclick="likeR({{$p->id}})"></a></li>
+                                                        @php
+                                                            $liked = true;
+                                                        @endphp
+                                                        @break
+                                                    @endif
+                                                @endforeach
+                                                @if(!$liked)
+                                                    <li><a class="like" id="lt{{$p->id}}" onclick="likeR({{$p->id}})"></a></li>
+                                                @endif
+                                            @else
+                                                <li><a class="like" id="lr{{$p->id}}" onclick="likeR({{$p->id}})"></a></li>
+                                            @endif
+                                            @endif
+                                            @endforeach
+                                            @endif
+                                        </ul>
+                                    </div>
+                                </div>
+                                @endforeach
+            </div>
+        </div>
         </div>
     <script>
         function showPosts()
@@ -194,6 +253,10 @@
             $("#myPostsL").hide();
             $(".postL").hide();
             $(".hideIconsL").hide();
+            $("#myPostsR").hide();
+            $(".postR").hide();
+            $(".hideIconsR").hide();
+
 
         }
 
@@ -206,7 +269,23 @@
             $("#myPostsP").hide();
             $(".postP").hide();
             $(".hideIconsP").hide();
+            $("#myPostsR").hide();
+            $(".postR").hide();
+            $(".hideIconsR").hide();
 
+        }
+
+        function showRetweets()
+        {
+            $("#myPostsR").show();
+            $(".postR").show();
+            $(".hideIconsR").show();
+            $("#myPostsL").hide();
+            $(".postL").hide();
+            $(".hideIconsL").hide();
+            $("#myPostsP").hide();
+            $(".postP").hide();
+            $(".hideIconsP").hide();
         }
 
 
@@ -242,15 +321,15 @@
             }
         }
 
-        function retweet(id)
+        function retweetP(id)
         {
-            if($("#r"+id).hasClass('is-retweeted'))
+            if($("#rp"+id).hasClass('is-retweeted'))
             {
                 $.ajax({
                     url: 'http://localhost:3300/post/unretweet/'+id,
                     success: function (data){
-                        $("#r"+id).removeClass('is-retweeted');
-                        $("#r"+id).addClass('retweet');
+                        $("#rp"+id).removeClass('is-retweeted');
+                        $("#rp"+id).addClass('retweet');
                     },
                     error: function(){
                         console.log('here ERR');
@@ -261,7 +340,63 @@
                 $.ajax({
                     url: 'http://localhost:3300/post/retweet/'+id,
                     success: function (data){
-                        $("#r"+id).toggleClass('is-retweeted');
+                        $("#rp"+id).toggleClass('is-retweeted');
+                    },
+                    error: function(){
+                        console.log('here ERR');
+                    }
+                });
+            }
+        }
+
+        function retweetL(id)
+        {
+            if($("#rl"+id).hasClass('is-retweeted'))
+            {
+                $.ajax({
+                    url: 'http://localhost:3300/post/unretweet/'+id,
+                    success: function (data){
+                        $("#rl"+id).removeClass('is-retweeted');
+                        $("#rl"+id).addClass('retweet');
+                    },
+                    error: function(){
+                        console.log('here ERR');
+                    }
+                });
+            }
+            else{
+                $.ajax({
+                    url: 'http://localhost:3300/post/retweet/'+id,
+                    success: function (data){
+                        $("#rl"+id).toggleClass('is-retweeted');
+                    },
+                    error: function(){
+                        console.log('here ERR');
+                    }
+                });
+            }
+        }
+
+        function retweetR(id)
+        {
+            if($("#rr"+id).hasClass('is-retweeted'))
+            {
+                $.ajax({
+                    url: 'http://localhost:3300/post/unretweet/'+id,
+                    success: function (data){
+                        $("#rr"+id).removeClass('is-retweeted');
+                        $("#rr"+id).addClass('retweet');
+                    },
+                    error: function(){
+                        console.log('here ERR');
+                    }
+                });
+            }
+            else{
+                $.ajax({
+                    url: 'http://localhost:3300/post/retweet/'+id,
+                    success: function (data){
+                        $("#rr"+id).toggleClass('is-retweeted');
                     },
                     error: function(){
                         console.log('here ERR');
@@ -272,14 +407,16 @@
 
 
 
-        function like(id){
-            if($("#l"+id).hasClass('is-liked'))
+
+
+        function likeP(id){
+            if($("#lp"+id).hasClass('is-liked'))
             {
                 $.ajax({
                     url: 'http://localhost:3300/post/dislike/'+id,
                     success: function (data){
-                        $("#l"+id).removeClass('is-liked');
-                        $("#l"+id).addClass('like');
+                        $("#lp"+id).removeClass('is-liked');
+                        $("#lp"+id).addClass('like');
                     },
                     error: function(){
                         console.log('here ERR');
@@ -290,7 +427,61 @@
                 $.ajax({
                     url: 'http://localhost:3300/post/like/'+id,
                     success: function (data){
-                        $("#l"+id).toggleClass('is-liked');
+                        $("#lp"+id).toggleClass('is-liked');
+                    },
+                    error: function(){
+                        console.log('here ERR');
+                    }
+                });
+            }
+        }
+
+        function likeL(id){
+            if($("#ll"+id).hasClass('is-liked'))
+            {
+                $.ajax({
+                    url: 'http://localhost:3300/post/dislike/'+id,
+                    success: function (data){
+                        $("#ll"+id).removeClass('is-liked');
+                        $("#ll"+id).addClass('like');
+                    },
+                    error: function(){
+                        console.log('here ERR');
+                    }
+                });
+            }
+            else{
+                $.ajax({
+                    url: 'http://localhost:3300/post/like/'+id,
+                    success: function (data){
+                        $("#ll"+id).toggleClass('is-liked');
+                    },
+                    error: function(){
+                        console.log('here ERR');
+                    }
+                });
+            }
+        }
+
+        function likeR(id){
+            if($("#lr"+id).hasClass('is-liked'))
+            {
+                $.ajax({
+                    url: 'http://localhost:3300/post/dislike/'+id,
+                    success: function (data){
+                        $("#lr"+id).removeClass('is-liked');
+                        $("#lr"+id).addClass('like');
+                    },
+                    error: function(){
+                        console.log('here ERR');
+                    }
+                });
+            }
+            else{
+                $.ajax({
+                    url: 'http://localhost:3300/post/like/'+id,
+                    success: function (data){
+                        $("#lr"+id).toggleClass('is-liked');
                     },
                     error: function(){
                         console.log('here ERR');
