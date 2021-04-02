@@ -55,13 +55,13 @@
                 <hr class="text-muted" style=" margin-top: 50px;border: 1px solid; text-align: center">
                 <div class="options">
                     <div class="posts">
-                        <a class="links m-auto" style="cursor: pointer" onclick="showPosts()">Posts</a>
+                        <a class="linkSelected m-auto" id="postsLink" style="cursor: pointer" onclick="showPosts()">Posts</a>
                     </div>
                     <div class="likes">
-                        <a class="links m-auto" style="cursor: pointer" onclick="showLikes()">Likes</a>
+                        <a class="links m-auto" id="likesLink" style="cursor: pointer" onclick="showLikes()">Likes</a>
                     </div>
                     <div class="retweets">
-                        <a class="links m-auto" style="cursor: pointer" onclick="showRetweets()">Retweets</a>
+                        <a class="links m-auto" id="retweetsLink" style="cursor: pointer" onclick="showRetweets()">Retweets</a>
                     </div>
                 </div>
                 <hr class="text-muted" style=" margin-top: 50px;border: 1px solid; text-align: center">
@@ -69,7 +69,7 @@
                     @foreach($user->posts as $p)
                         <div class="postP m-auto">
                             <div class="userData">
-                                <img src="https://pngimage.net/wp-content/uploads/2018/06/no-photo-avatar-png-6.png" alt="">
+                                <a><img src="https://pngimage.net/wp-content/uploads/2018/06/no-photo-avatar-png-6.png" alt=""></a>
                                 <div class="postText">
                                     <p class="postUsername">{{$user->username}} <span class="text-muted" style="font-size: 15px">{{'@'.$user->username}} . {{$p->created_at->diffForHumans()}}</span></p>
                                     <p class="postContent">{{$p->content}}</p>
@@ -140,11 +140,11 @@
                                              @if($l->user_id == auth()->user()->id)
                                             <div class="postL m-auto" style="display: none">
                                                 <div class="userData">
-                                                    <img src="https://pngimage.net/wp-content/uploads/2018/06/no-photo-avatar-png-6.png" alt="">
-                                                    <div class="postText">
                                                         @foreach($users as $us)
                                                             @foreach($us->posts as $po)
                                                                 @if($po->id == $l->post_id)
+                                                                <a href="{{ route('profile', $us->username) }}"><img src="https://pngimage.net/wp-content/uploads/2018/06/no-photo-avatar-png-6.png" alt=""></a>
+                                                                <div class="postText">
                                                         <p class="postUsername">{{$us->username}} <span class="text-muted" style="font-size: 15px">{{'@'.$us->username}} . {{$po->created_at->diffForHumans()}}</span></p>
                                                         <p class="postContent">{{$p->content}}</p>
                                                                 @endif
@@ -183,7 +183,6 @@
                         </div>
                     @endforeach
                 </div>
-            </div>
 <!--            ONLY VISIBLE WHEN RETWEET MENU IS SELECTED-->
 
             <div class="data m-auto col-md-12" id="myPostsR" style="display: none">
@@ -199,11 +198,11 @@
                             @if($r->user_id == auth()->user()->id)
                                 <div class="postR m-auto" style="display: none">
                                     <div class="userData">
-                                        <img src="https://pngimage.net/wp-content/uploads/2018/06/no-photo-avatar-png-6.png" alt="">
-                                        <div class="postText">
-                                            @foreach($users as $us)
+                                        @foreach($users as $us)
                                                 @foreach($us->posts as $po)
                                                     @if($po->id == $r->post_id)
+                                                <a href="{{ route('profile', $us->username) }}"><img src="https://pngimage.net/wp-content/uploads/2018/06/no-photo-avatar-png-6.png" alt=""></a>
+                                                <div class="postText">
                                                         <p class="postUsername">{{$us->username}} <span class="text-muted" style="font-size: 15px">{{'@'.$us->username}} . {{$po->created_at->diffForHumans()}}</span></p>
                                                         <p class="postContent">{{$p->content}}</p>
                                                     @endif
@@ -244,9 +243,16 @@
             </div>
         </div>
         </div>
+    </div>
     <script>
         function showPosts()
         {
+            $("#retweetsLink").removeClass('linkSelected');
+            $("#retweetsLink").addClass('links');
+            $("#likesLink").removeClass('linkSelected');
+            $("#likesLink").addClass('links');
+            $("#postsLink").removeClass('links');
+            $("#postsLink").addClass('linkSelected');
             $("#myPostsP").show();
             $(".postP").show();
             $(".hideIconsP").show();
@@ -263,6 +269,12 @@
         function showLikes()
         {
 
+            $("#retweetsLink").removeClass('linkSelected');
+            $("#retweetsLink").addClass('links');
+            $("#postsLink").removeClass('linkSelected');
+            $("#postsLink").addClass('links');
+            $("#likesLink").removeClass('links');
+            $("#likesLink").addClass('linkSelected');
             $("#myPostsL").show();
             $(".postL").show();
             $(".hideIconsL").show();
@@ -277,6 +289,12 @@
 
         function showRetweets()
         {
+            $("#likesLink").removeClass('linkSelected');
+            $("#likesLink").addClass('links');
+            $("#postsLink").removeClass('linkSelected');
+            $("#postsLink").addClass('links');
+            $("#retweetsLink").removeClass('links');
+            $("#retweetsLink").addClass('linkSelected');
             $("#myPostsR").show();
             $(".postR").show();
             $(".hideIconsR").show();
