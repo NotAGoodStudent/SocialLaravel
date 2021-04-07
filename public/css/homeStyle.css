@@ -63,3 +63,135 @@ textarea {
     transition: 0.25s;
     cursor: pointer;
 }
+
+.data
+{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+}
+
+.userData
+{
+    padding-left: 70px;
+}
+
+.postP, .postL, .postR
+{
+    width: 33.3%;
+    padding: 14px 40px;
+    border: 1px solid #6c757d;
+}
+
+.userData > a > img
+{
+    width: 50px;
+    border-radius: 50%;
+    z-index: 1;
+    float: left;
+}
+.postUsername
+{
+    margin-right: 5px;
+    color: white;
+    font-size: 20px;
+}
+.postText
+{
+    width: 100%;
+    margin-left: 70px;
+}
+
+.postContent
+{
+    color: white;
+    font-size: 15px;
+    text-align: justify;
+}
+ul.social-network {
+    list-style: none;
+    display: flex;
+    margin-left: 0 !important;
+    padding: 0;
+    justify-content: space-around;
+}
+
+ul.social-network li {
+    display: inline;
+    margin: 0 5px
+}
+
+.social-circle li a {
+    display: inline-block;
+    position: relative;
+    margin: 0 auto 0 auto;
+    border-radius: 50%;
+    text-align: center;
+    width: 50px;
+    height: 50px;
+    font-size: 15px;
+}
+
+.social-circle li i {
+    margin: 0;
+    line-height: 50px;
+    text-align: center
+}
+
+.comment
+{
+    color: #6c757d;
+}
+
+.comment:hover
+{
+    background-color: #007FFF1a;
+}
+
+.comment:hover i{
+    color: #007FFF;
+}
+.retweet i
+{
+    color: #6c757d;
+}
+
+.retweet:hover {
+    background-color: #2ecc711a;
+
+}
+
+.retweet:hover i{
+    color: #2ecc71;
+}
+
+.is-retweeted i
+{
+    color: #2ecc71;
+}
+
+.like{
+    height: 50px;
+    width: 50px;
+    background-image: url('http://abs.twimg.com/a/1517453990/img/animations/web_heart_animation_edge.png');
+    background-size: 1450px 50px;
+}
+.like:hover{
+    background-position: 3.571428571428571%;
+    background-color: #ff00001a;
+}
+.is-liked{
+    background-image: url('http://abs.twimg.com/a/1517453990/img/animations/web_heart_animation_edge.png');
+    background-size: 1450px 50px;
+    animation: like 1s steps(28) forwards;
+}
+@keyframes like {
+    0%{
+        background-position: 0 0;
+    }
+    100%{
+        background-position: right;
+    }
+}
+
