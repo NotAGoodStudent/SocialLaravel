@@ -6,12 +6,17 @@
         <div class="m-auto">
             <div class="content" style="background-color: #060606">
                 <div class="thoughts">
+                    <div class="search_bar float-right">
+                        <input type="text" class="search" placeholder="Search">
+                    </div>
                     <div class="textfield_container m-auto">
                         <a class="link" href="{{ route('profile', auth()->user()->username) }}"><img class="mx-auto d-block" style="width: 50px; height: 50px; border-radius: 50%" src="https://pngimage.net/wp-content/uploads/2018/06/no-photo-avatar-png-6.png"></a>
                         <form action="{{ route('makePost', auth()->user()->id)}}" method="post">
                             @csrf
-                        <textarea id="txtarea" name="post" class="txt-area mx-auto d-block" placeholder="What are your thoughts {{auth()->user()->username}}?"></textarea>
+                        <textarea onclick="activateArea()" id="txtarea" name="post" class="txt-area mx-auto d-block" placeholder="What are your thoughts {{auth()->user()->username}}?"></textarea>
+                            <div class="m-auto ">
                             <input class='buttonPost float-right' id="buttonAct" type="submit" name="" value="Post" disabled>
+                            </div>
                         </form>
                     </div>
                 </div>
@@ -46,12 +51,14 @@
                                                 $retweeted = true;
                                             @endphp
                                             @break
-                                        @else
-                                            @if(!$retweeted)
-                                                <li><a class="retweet" id="r{{$p->id}}" onclick="retweet({{$p->id}})"><i class="fas fa-retweet"></i></a></li>
-                                            @endif
                                         @endif
                                     @endforeach
+                                    @if(!$retweeted)
+                                        <li><a class="retweet" id="r{{$p->id}}" onclick="retweet({{$p->id}})"><i class="fas fa-retweet"></i></a></li>
+                                    @endif
+                                @else
+                                    <li><a class="retweet" id="r{{$p->id}}" onclick="retweet({{$p->id}})"><i class="fas fa-retweet"></i></a></li>
+
                                 @endif
 
                                 @if(count($p->likes) > 0)
@@ -67,10 +74,11 @@
                                             @break
                                         @endif
                                     @endforeach
-                                @else
                                     @if(!$liked)
                                         <li><a class="like" id="l{{$p->id}}" onclick="like({{$p->id}})"></a></li>
                                     @endif
+                                @else
+                                    <li><a class="like" id="l{{$p->id}}" onclick="like({{$p->id}})"></a></li>
                                 @endif
                             </ul>
                         </div>
@@ -113,6 +121,12 @@
                 });
            });
 
+
+           function activateArea()
+           {
+               $('#txtarea').removeClass('txt-area');
+               $('#txtarea').addClass('txt-area-active');
+           }
            function retweet(id)
            {
                if($("#r"+id).hasClass('is-retweeted'))
@@ -141,7 +155,7 @@
                }
            }
 
-           function likeP(id){
+           function like(id){
                if($("#l"+id).hasClass('is-liked'))
                {
                    $.ajax({
