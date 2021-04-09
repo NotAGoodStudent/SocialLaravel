@@ -5,9 +5,45 @@
         <link href="{{ asset('css/homeStyle.css') }}" rel="stylesheet">
         <div class="m-auto">
             <div class="content" style="background-color: #060606">
+                <div class="homeTitle m-auto">
+                        <h5>Home</h5>
+                </div>
                 <div class="thoughts">
                     <div class="search_bar float-right">
                         <input type="text" class="search" placeholder="Search">
+                    </div>
+                    <div class="results" hidden>
+
+                    </div>
+                    <div class="recommended">
+                        <div class="cart">
+                            <h4>Who to follow</h4>
+                            @php
+                            $counter = 0;
+                            @endphp
+                            @foreach($users as $us)
+                                @foreach(auth()->user()->following as $f)
+                                    @if($us->id != auth()->user()->id && $us->id != $f->id)
+                                        <div class="suggested">
+                                            <div class="text_suggested">
+                                                <a class="link" href="{{ route('profile', $us->username) }}"><img style="width: 50px; height: 50px; border-radius: 50%" src="https://pngimage.net/wp-content/uploads/2018/06/no-photo-avatar-png-6.png"></a>
+                                                <p class="postUsername">{{$us->username}} <span class="text-muted" style="font-size: 15px">{{'@'.$us->username}}</span></p>
+                                            </div>
+                                            <div class="button_suggested">
+                                                <a class="followButton m-auto" id="f{{$us->id}}" onclick="follow({{$us->id}})">Follow</a>
+                                            </div>
+
+                                        </div>
+                                        {{$counter++}}
+                                        @if($counter == 3)
+                                            @break
+                                            @endif
+                                        @endif
+                                @endforeach
+                            @endforeach
+
+                            <a href="" style="margin-top: 5px">Show more</a>
+                        </div>
                     </div>
                     <div class="textfield_container m-auto">
                         <a class="link" href="{{ route('profile', auth()->user()->username) }}"><img class="mx-auto d-block" style="width: 50px; height: 50px; border-radius: 50%" src="https://pngimage.net/wp-content/uploads/2018/06/no-photo-avatar-png-6.png"></a>

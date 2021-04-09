@@ -1,9 +1,28 @@
 .thoughts
 {
     width: 100%;
-    margin-top: 2%;
 }
 
+.homeTitle
+{
+    background-color: #060606;
+    text-align: left;
+    border-right: 1px solid rgb(47, 51, 54);
+    border-left: 1px solid rgb(47, 51, 54);
+    width: 33.3%;
+    height: 50px;
+    margin-top: 10px;
+}
+
+.homeTitle > h5
+{
+    color: rgb(217, 217, 217);
+    font-weight: bold;
+    margin-top: 15px;
+    margin-bottom: 10px;
+    margin-left: 10px;
+
+}
 .content
 {
     width: 100%;
@@ -17,6 +36,68 @@
     float: right;
     text-align: center;
 }
+
+.results
+{
+    width: 33.3%;
+    float: right;
+    margin-top: 5px;
+}
+
+.cart
+{
+    background-color: #202020;
+    border-radius: 10px;
+    width: 20%;
+    float: left;
+    margin-top: 5px;
+}
+
+.cart > h4
+{
+    color:white;
+}
+
+.suggested
+{
+    border-bottom: 1px solid #6c757d;
+    height: 75px;
+}
+
+.text_suggested
+{
+    display: inline-block;
+    justify-content: space-between;
+}
+
+.button_suggested
+{
+    float: right;
+}
+
+.followButton
+{
+    background-color: transparent;
+    border: 0;
+    display: block;
+    text-align: center;
+    border: 2px solid #007FFF;
+    padding: 10px 30px;
+    outline: none;
+    color: #007FFF;
+    border-radius: 24px;
+    transition: 0.25s;
+    cursor: pointer;
+    width: 100px;
+}
+
+.followButton:hover
+{
+    text-decoration: none;
+    color: #007FFF;
+    background-color: #007FFF1a;
+}
+
 .search
 {
     outline: none;
@@ -42,12 +123,11 @@ textarea {
 
 .txt-area
 {
-    margin-top: 20px;
     width: 100%;
     height: 150px;
     background-color: transparent;
-    color: white;
-    border: 1px solid #6c757d;
+    color: rgb(217, 217, 217);
+    border: 1px solid rgb(47, 51, 54);
     transition: 0.25s;
     overflow: hidden;
     font-size: 20px;
@@ -56,12 +136,10 @@ textarea {
 
 .txt-area-active
 {
-    margin-top: 20px;
     width: 100%;
     height: 150px;
     background-color: transparent;
-    color: white;
-    border: 1px solid #3498db;
+    color: rgb(217, 217, 217);
     transition: 0.25s;
     overflow: hidden;
     font-size: 20px;
@@ -70,6 +148,7 @@ textarea {
 .textfield_container
 {
     width: 33.3%;
+    border: 1px solid rgb(47, 51, 54);
 }
 
 .link
@@ -123,7 +202,7 @@ textarea {
 {
     width: 33.3%;
     padding: 14px 40px;
-    border: 1px solid #6c757d;
+    border: 1px solid rgb(47, 51, 54);
 }
 
 .userData > a > img
@@ -147,7 +226,7 @@ textarea {
 
 .postContent
 {
-    color: white;
+    color: rgb(217, 217, 217);;
     font-size: 15px;
     text-align: justify;
 }

@@ -67,7 +67,7 @@
     border: 2px solid #007FFF;
     padding: 14px 40px;
     outline: none;
-    color: white;
+    color: #007FFF;
     border-radius: 24px;
     transition: 0.25s;
     cursor: pointer;
@@ -77,7 +77,8 @@
 .followButton:hover
 {
     text-decoration: none;
-    color: white;
+    color: #007FFF;
+    background-color: #007FFF;
 }
 
 .is-followed
