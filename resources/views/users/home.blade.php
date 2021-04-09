@@ -5,32 +5,44 @@
         <link href="{{ asset('css/homeStyle.css') }}" rel="stylesheet">
         <div class="home m-auto d-flex justify-content-between">
             <div class="box1">
-                <div class="cart">
-                    <h4>Who to follow</h4>
-                    @php
+                <div class="cardSug">
+                    <div class="whotofollow_title">
+                        <h4 style="margin-top: 25px">Who to follow</h4>
+                    </div>
+                    <?php
                         $counter = 0;
-                    @endphp
+                        $exists = false;
+                    ?>
                     @foreach($users as $us)
                         @foreach(auth()->user()->following as $f)
-                            @if($us->id != auth()->user()->id && $us->id != $f->id)
-                                <div class="suggested">
-                                    <div class="text_suggested">
-                                        <a class="link" href="{{ route('profile', $us->username) }}"><img style="width: 50px; height: 50px; border-radius: 50%" src="https://pngimage.net/wp-content/uploads/2018/06/no-photo-avatar-png-6.png"></a>
-                                        <p class="postUsername">{{$us->username}} <span class="text-muted" style="font-size: 15px">{{'@'.$us->username}}</span></p>
-                                    </div>
-                                    <div class="button_suggested">
-                                        <a class="followButton m-auto" id="f{{$us->id}}" onclick="follow({{$us->id}})">Follow</a>
-                                    </div>
-                                </div>
-                                {{$counter++}}
-                                @if($counter == 3)
-                                    @break
-                                @endif
+                            @if($us->id != auth()->user()->id and $us->id == $f->id)
+                                <?php
+                                $exists = true;
+                                ?>
+                                @break
                             @endif
                         @endforeach
+                    @if(!$exists and $us->id != auth()->user()->id)
+                                <div class="suggested">
+                                        <a class="link" href="{{ route('profile', $us->username) }}"><img style="width: 50px; height: 50px; border-radius: 50%" src="https://pngimage.net/wp-content/uploads/2018/06/no-photo-avatar-png-6.png"></a>
+                                        <p class="postUsername">{{$us->username}} <span class="text-muted" style="font-size: 15px">{{'@'.$us->username}}</span></p>
+                                        <a class="followButton float-right" id="f{{$us->id}}" onclick="follow({{$us->id}})">Follow</a>
+                                </div>
+                                <?php
+                                    $counter++;
+                                ?>
+                        @else
+                                <?php
+                                    $exists = false;
+                                ?>
+                        @endif
+                            @if($counter > 2)
+                                @break
+                            @endif
                     @endforeach
-
-                    <a href="" style="margin-top: 5px">Show more</a>
+                    <div class="showMore">
+                        <a href="">Show more</a>
+                    </div>
                 </div>
             </div>
             <div class="box2">
@@ -153,6 +165,38 @@
                         }
                 });
            });
+
+           function follow(id)
+           {
+               if($("#f"+id).hasClass('is-followed'))
+               {
+                   $.ajax({
+                       url: 'http://localhost:3300/user/unfollow/'+id,
+                       success: function (data){
+                           $("#f"+id).removeClass('is-followed');
+                           $("#f"+id).addClass('followButton');
+                           $("#f"+id).text('Follow');
+                           $("#followerCounter").text( parseInt($("#followerCounter").text())-1)
+                       },
+                       error: function(){
+                           console.log('here ERR');
+                       }
+                   });
+               }
+               else{
+                   $.ajax({
+                       url: 'http://localhost:3300/user/follow/'+id,
+                       success: function (data){
+                           $("#f"+id).text('Following');
+                           $("#f"+id).toggleClass('is-followed');
+                           $("#followerCounter").text( parseInt($("#followerCounter").text())+1)
+                       },
+                       error: function(){
+                           console.log('here ERR');
+                       }
+                   });
+               }
+           }
 
 
            function activateArea()
