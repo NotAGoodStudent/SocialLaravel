@@ -2,16 +2,25 @@
 {
     width: 100%;
 }
+html
+{
+     background-color: #060606;
+}
+body
+{
+    background-color: #060606;
+}
 
 .homeTitle
 {
-    background-color: #060606;
     text-align: left;
     border-right: 1px solid rgb(47, 51, 54);
     border-left: 1px solid rgb(47, 51, 54);
-    width: 33.3%;
-    height: 50px;
-    margin-top: 10px;
+}
+
+.homeTitle > img
+{
+    margin: 10px 20px;
 }
 
 .homeTitle > h5
@@ -30,16 +39,15 @@
     flex-direction: column;
 }
 
+
 .search_bar
 {
-    width: 33.3%;
     float: right;
     text-align: center;
 }
 
 .results
 {
-    width: 33.3%;
     float: right;
     margin-top: 5px;
 }
@@ -48,7 +56,6 @@
 {
     background-color: #202020;
     border-radius: 10px;
-    width: 20%;
     float: left;
     margin-top: 5px;
 }
@@ -91,6 +98,11 @@
     width: 100px;
 }
 
+.home
+{
+    width: 100%;
+}
+
 .followButton:hover
 {
     text-decoration: none;
@@ -113,7 +125,7 @@
 
 textarea {
     border: none;
-    overflow: auto;
+    overflow: hidden;
     outline: none;
     -webkit-box-shadow: none;
     -moz-box-shadow: none;
@@ -127,12 +139,10 @@ textarea {
     height: 150px;
     background-color: transparent;
     color: rgb(217, 217, 217);
-    border: 1px solid rgb(47, 51, 54);
     transition: 0.25s;
     overflow: hidden;
     font-size: 20px;
 }
-
 
 .txt-area-active
 {
@@ -147,21 +157,22 @@ textarea {
 
 .textfield_container
 {
-    width: 33.3%;
     border: 1px solid rgb(47, 51, 54);
 }
 
 .link
 {
+    margin: 10px 5px;
     cursor: pointer;
     width: 50px;
+    float: left;
 }
 
 .buttonPost  {
     border: 0;
     background: none;
     display: block;
-    margin: 20px auto;
+    margin: 20px 5px;
     background: rgba(46, 204, 113, 0.4);
     padding: 10px 30px;
     outline: none;
@@ -175,7 +186,7 @@ textarea {
     border: 0;
     background: none;
     display: block;
-    margin: 20px auto;
+    margin: 20px 5px;
     background: rgba(46, 204, 113, 1);
     padding: 10px 30px;
     outline: none;
@@ -185,24 +196,31 @@ textarea {
     cursor: pointer;
 }
 
-.data
+
+.box2
 {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    width: 100%;
+    width: 33.3%;
+}
+.box1, .box3
+{
+    width: 20%;
+    margin: 10px 130px;
 }
 
+.recommended
+{
+    width: 100%;
+}
 .userData
 {
-    padding-left: 70px;
+    margin: 10px 20px;
 }
 
 .postP, .postL, .postR
 {
-    width: 33.3%;
-    padding: 14px 40px;
-    border: 1px solid rgb(47, 51, 54);
+    border-right: 1px solid rgb(47, 51, 54);
+    border-left: 1px solid rgb(47, 51, 54);
+    border-bottom: 1px solid rgb(47, 51, 54);
 }
 
 .userData > a > img

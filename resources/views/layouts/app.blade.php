@@ -22,7 +22,7 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
-<body style="background-color: #202020">
+<body>
     <div id="app">
         <nav class="navbar navbar-expand-md shadow-sm">
             <div class="container">
