@@ -5,6 +5,11 @@
     border-top: none;
 }
 
+body
+{
+    background-color: #060606;
+}
+
 .background_img
 {
     width: 100%;
@@ -178,9 +183,12 @@
 
 .postP, .postL, .postR
 {
+    top: 0;
     width: 33.3%;
     padding: 14px 40px;
-    border: 1px solid #6c757d;
+    border-right: 1px solid rgb(47, 51, 54);
+    border-left: 1px solid rgb(47, 51, 54);
+    border-bottom: 1px solid rgb(47, 51, 54);
 }
 
 .userData > a > img

@@ -54,21 +54,24 @@ body
 
 .cardSug
 {
+    width: 100%;
     background-color: #202020;
     border-radius: 10px;
     margin-top: 5px;
+    display: flex;
+    flex-direction: column;
 }
 
 .whotofollow_title
 {
-    height: 50px;
     width: 100%;
+
 }
 
 .whotofollow_title > h4
 {
     color:white;
-    margin-left: 10px;
+    margin-top: 20px;
 }
 
 .suggested
@@ -76,6 +79,28 @@ body
     border-top: 1px solid #6c757d;
     margin: 50px 10px;
     height: 50px;
+}
+
+.show_more, .show_less
+{
+    color: #1f6fb2;
+    cursor: pointer;
+}
+
+.suggested_card_full
+{
+    width: 100%;
+    background-color: transparent;
+    margin-top: 5px;
+    display: flex;
+    flex-direction: column;
+}
+
+.suggestedFull
+{
+    box-shadow: 0 0 10px rgba(255,255,255, 1);
+    border-radius: 10px;
+    margin: 50px 10px;
 }
 
 
@@ -282,7 +307,7 @@ textarea {
 
 .postContent
 {
-    color: rgb(217, 217, 217);;
+    color: rgb(217, 217, 217);
     font-size: 15px;
     text-align: justify;
 }

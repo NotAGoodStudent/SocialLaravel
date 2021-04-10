@@ -6,8 +6,8 @@
         <div class="home m-auto d-flex justify-content-between">
             <div class="box1">
                 <div class="cardSug">
-                    <div class="whotofollow_title">
-                        <h4 style="margin-top: 25px">Who to follow</h4>
+                    <div class="whotofollow_title m-auto">
+                        <h4 class="m-auto">Who to follow</h4>
                     </div>
                     <?php
                         $counter = 0;
@@ -41,8 +41,36 @@
                             @endif
                     @endforeach
                     <div class="showMore">
-                        <a href="">Show more</a>
+                        <a onclick="showMore()" class="show_less" id="show">Show more</a>
                     </div>
+                </div>
+                <div class="suggested_card_full" id="suggested_card_full" style="display: none">
+                    <?php
+                    $exists = false;
+                    ?>
+                    @foreach($users as $us)
+                        @foreach(auth()->user()->following as $f)
+                            @if($us->id != auth()->user()->id and $us->id == $f->id)
+                                <?php
+                                $exists = true;
+                                ?>
+                                @break
+                            @endif
+                        @endforeach
+                        @if(!$exists and $us->id != auth()->user()->id)
+                            <div class="suggestedFull">
+                                <a class="link" href="{{ route('profile', $us->username) }}"><img style="width: 50px; height: 50px; border-radius: 50%" src="https://pngimage.net/wp-content/uploads/2018/06/no-photo-avatar-png-6.png"></a>
+                                <p class="postUsername">{{$us->username}} <span class="text-muted" style="font-size: 15px">{{'@'.$us->username}}</span></p>
+                                <a class="followButton float-right" id="f{{$us->id}}" onclick="follow({{$us->id}})">Follow</a>
+                            </div>
+                            <?php
+                            ?>
+                        @else
+                            <?php
+                            $exists = false;
+                            ?>
+                        @endif
+                    @endforeach
                 </div>
             </div>
             <div class="box2">
@@ -165,6 +193,26 @@
                         }
                 });
            });
+
+           function showMore()
+           {
+               if($('#show').hasClass('show_less'))
+               {
+                   console.log('here');
+                   $('#show').removeClass('show_less');
+                   $('#show').addClass('show_more');
+                   $('#show').text('Show less');
+                   $('#suggested_card_full').show();
+               }
+               else
+               {
+                   console.log('here2');
+                   $('#show').removeClass('show_more');
+                   $('#show').addClass('show_less');
+                   $('#show').text('Show more');
+                   $('#suggested_card_full').hide();
+               }
+           }
 
            function follow(id)
            {

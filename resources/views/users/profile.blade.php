@@ -3,7 +3,7 @@
 @section('content')
     <link href="{{ asset('css/profileStyle.css') }}" rel="stylesheet">
     <div class="m-auto" style="width: 100%; " >
-        <div class="profile_container m-auto" style="background-color: #060606">
+        <div class="profile_container m-auto">
             <div class="content m-auto">
                 <div class="username">
                     <h2 class="m-auto">{{$user->username}}</h2>
@@ -52,7 +52,7 @@
                             @endif
                     </div>
                 </div>
-                <hr class="text-muted" style=" margin-top: 50px;border: 1px solid; text-align: center">
+                <div style=" margin-top: 50px;border-bottom: 1px solid rgb(47, 51, 54); text-align: center; background-color: rebeccapurple"></div>
                 <div class="options">
                     <div class="posts">
                         <a class="linkSelected m-auto" id="postsLink" style="cursor: pointer" onclick="showPosts()">Posts</a>
@@ -64,8 +64,8 @@
                         <a class="links m-auto" id="retweetsLink" style="cursor: pointer" onclick="showRetweets()">Retweets</a>
                     </div>
                 </div>
-                <hr class="text-muted" style=" margin-top: 50px;border: 1px solid; text-align: center">
-                <div class="data m-auto col-md-12" id="myPostsP">
+                <div style=" margin-top: 50px;border-bottom: 1px solid rgb(47, 51, 54); text-align: center; background-color: rebeccapurple"></div>
+                <div class="data m-auto" id="myPostsP">
                     @foreach($user->posts as $p)
                         <div class="postP m-auto">
                             <div class="userData">
@@ -127,7 +127,7 @@
                 </div>
 <!--                HIDDEN UNTIL LIKE IS CLICKED-->
 
-                <div class="data m-auto col-md-12" id="myPostsL" style="display: none">
+                <div class="data m-auto" id="myPostsL" style="display: none">
                     @foreach($posts as $p)
 
                                 <!--CHECK IF POST IS LIKED BY CURRENT USER-->
@@ -185,7 +185,7 @@
                 </div>
 <!--            ONLY VISIBLE WHEN RETWEET MENU IS SELECTED-->
 
-            <div class="data m-auto col-md-12" id="myPostsR" style="display: none">
+            <div class="data m-auto" id="myPostsR" style="display: none">
             @foreach($posts as $p)
 
                 <!--CHECK IF POST IS LIKED BY CURRENT USER-->
