@@ -42,6 +42,7 @@ body
 
 .search_bar
 {
+    width: 100%;
     float: right;
     text-align: center;
 }
@@ -176,9 +177,29 @@ body
 .search
 {
     outline: none;
-    width: 35%;
+    width: 100%;
     text-align: center;
     background-color: #202020;
+    border-color: transparent;
+    border-radius: 24px;
+    height: 40px;
+    color: white;
+}
+
+.search-coincidences
+{
+    width: 100%;
+    box-shadow: 0 0 10px rgba(255,255,255, 1);
+    border-radius: 10px;
+    z-index: 1;
+}
+
+.search-active
+{
+    outline: none;
+    width: 100%;
+    text-align: center;
+    background-color: transparent;
     border: 2px solid #3498db;
     border-radius: 24px;
     height: 40px;

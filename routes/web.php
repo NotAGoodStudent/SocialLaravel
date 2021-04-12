@@ -24,6 +24,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 
 Route::middleware('auth')->group(function(){
+    Route::get('/users/getUsers', 'UserController@getUsers')->name('getUsers');
     Route::get('/user/updateProfile','UserController@returnModifyProfileView')->name('modifyProfile');
     Route::patch('/user/updateData/{id}','UserController@updateUserData')->name('updateUserData');
     Route::post('/home/post/{id}', 'PostController@makePost')->name('makePost');
@@ -34,4 +35,5 @@ Route::middleware('auth')->group(function(){
     Route::get('/post/dislike/{post_id}', 'LikeController@dislikePost')->name('dislike');
     Route::get('/post/retweet/{post_id}', 'RetweetController@retweetPost')->name('retweet');
     Route::get('/post/unretweet/{post_id}', 'RetweetController@unretweetPost')->name('unretweet');
+    Route::get('/topics/getTopics', 'TopicController@getTopics')->name('getTopics');
 });

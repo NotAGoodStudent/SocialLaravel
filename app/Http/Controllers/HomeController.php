@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Post;
+use App\Topic;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -27,6 +28,7 @@ class HomeController extends Controller
     {
         $posts = Post::all();
         $users = User::all();
-        return view('users.home', compact('posts', 'users'));
+        $topics = Topic::all();
+        return view('users.home', compact('posts', 'users', 'topics'));
     }
 }

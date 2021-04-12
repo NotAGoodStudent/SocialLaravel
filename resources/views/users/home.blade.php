@@ -157,14 +157,50 @@
             </div>
               <div class="box3">
                 <div class="search_bar">
-                    <input type="text" class="search" placeholder="Search">
-                    <div class="results" hidden>
+                    <input type="text" class="search" id="search" placeholder="Search">
+                    <div class="results" id="results" hidden>
                     </div>
                 </div>
             </div>
         </div>
         <script>
            $(document).ready(function (){
+
+               topics = new Array();
+               $.ajax({
+                   url: 'http://localhost:3300/topics/getTopics',
+                   success: function (data){
+                       topics = data;
+                       console.log(topics[0]);
+                   },
+                   dataType: "json"
+               });
+
+               users = new Array()
+               {
+                   $.ajax({
+                       url: 'http://localhost:3300/users/getUsers',
+                       success: function (data){
+                           users = data;
+                           console.log(users[0]);
+                       },
+                       dataType: "json"
+                   });
+               }
+
+               $('#search').keydown(function(){
+
+                   {
+                       if($.trim($('#search').val()))
+                       {
+                            for(var x = 0; x < users.length;x++)
+                            {
+                                console.log(users[x][1])
+                            }
+                       }
+                   }
+               });
+
                 $('#txtarea').keydown(function (){
                     if ($.trim($("#txtarea").val()))
                     {
