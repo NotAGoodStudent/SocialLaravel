@@ -8,6 +8,31 @@ textarea {
     resize: none; /*remove the resize handle on the bottom right*/
 }
 
+.hideInput{
+    overflow: hidden;
+    vertical-align: middle;
+    cursor: pointer;
+}
+.input[type='file'].hidden{
+    margin: 0;
+    padding: 0;
+    cursor: pointer;
+    opacity: 0;
+    -moz-opacity: 0;
+    filter: Alpha(Opacity=0);
+}
+
+.uploadPFP
+{
+    border-radius: 50%;
+    width: 200px;
+    height: 200px;
+}
+.uploadPFP:hover{
+    cursor: pointer;
+    background-size: 400px;
+}
+
 .txt-area
 {
     width: 400px;

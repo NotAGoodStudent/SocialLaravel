@@ -8,7 +8,12 @@
             @csrf
                 @method('PATCH')
                 <h2 class="title">Edit Profile</h2>
-                <img class="mx-auto d-block" style="width: 200px; height: 200px; border-radius: 50%" src="https://pngimage.net/wp-content/uploads/2018/06/no-photo-avatar-png-6.png">
+                <div class="m-auto d-flex" style="width: 100%; position: center">
+                    <div class="hideInput d-inline-block m-auto">
+                        <input type="file" class="imageUpload m-auto" name="pfp" value="{{auth()->user()->pfp}}">
+                        <img src="{{Storage::url('public/img/pfp/'.auth()->user()->pfp)}}" class="uploadPFP m-auto d-flex" alt="">
+                    </div>
+                </div>
                 <label class="mx-auto d-block labels" for="username">Username</label>
                 <input class="mx-auto d-block" type="text" name="username" value="{{auth()->user()->username}}">
                 @if(auth()->user()->bio == null)

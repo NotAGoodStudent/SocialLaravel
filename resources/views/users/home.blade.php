@@ -1,15 +1,17 @@
+
 @extends('layouts.app')
 
 @section('content')
 {{--    bug when looping, doesn't mark liked and retweeted posts--}}
         <link href="{{ asset('css/homeStyle.css') }}" rel="stylesheet">
-        <div class="home m-auto d-flex justify-content-between">
-            <div class="box1">
+        <div class="home m-auto d-flex justify-content-around">
+            <div class="box1 col-md-3">
                 <div class="cardSug">
                     <div class="whotofollow_title m-auto">
                         <h4 class="m-auto">Who to follow</h4>
                     </div>
                     <?php
+                        use Illuminate\Support\Facades\Storage;
                         $counter = 0;
                         $exists = false;
                     ?>
@@ -24,9 +26,9 @@
                         @endforeach
                     @if(!$exists and $us->id != auth()->user()->id)
                                 <div class="suggested">
-                                        <a class="link" href="{{ route('profile', $us->username) }}"><img style="width: 50px; height: 50px; border-radius: 50%" src="https://pngimage.net/wp-content/uploads/2018/06/no-photo-avatar-png-6.png"></a>
+                                        <a class="link" href="{{ route('profile', $us->username) }}"><img style="width: 50px; height: 50px; border-radius: 50%" src="{{Storage::url('public/img/pfp/'.$us->pfp)}}"></a>
                                         <p class="postUsername">{{$us->username}} <span class="text-muted" style="font-size: 15px">{{'@'.$us->username}}</span></p>
-                                        <a class="followButton float-right" id="f{{$us->id}}" onclick="follow({{$us->id}})">Follow</a>
+                                        <a class="followButton float-right" id="f{{$us->id}}" onclick="follow({{$us->id}})">Follow</a   >
                                 </div>
                                 <?php
                                     $counter++;
@@ -59,7 +61,7 @@
                         @endforeach
                         @if(!$exists and $us->id != auth()->user()->id)
                             <div class="suggestedFull">
-                                <a class="link" href="{{ route('profile', $us->username) }}"><img style="width: 50px; height: 50px; border-radius: 50%" src="https://pngimage.net/wp-content/uploads/2018/06/no-photo-avatar-png-6.png"></a>
+                                <a class="link" href="{{ route('profile', $us->username) }}"><img style="width: 50px; height: 50px; border-radius: 50%" src="{{Storage::url('public/img/pfp/'.$us->pfp)}}"></a>
                                 <p class="postUsername">{{$us->username}} <span class="text-muted" style="font-size: 15px">{{'@'.$us->username}}</span></p>
                                 <a class="followButton float-right" id="f{{$us->id}}" onclick="follow({{$us->id}})">Follow</a>
                             </div>
@@ -73,7 +75,7 @@
                     @endforeach
                 </div>
             </div>
-            <div class="box2">
+            <div class="box2 col-md-4 m-auto">
                 <div class="content">
                     <div class="homeTitle">
                         <h5>Home</h5>
@@ -81,7 +83,7 @@
                     <div class="thoughts">
                         <div class="textfield_container">
                             <div class="imgDiv" style="width: 100%; margin: 10px 20px;">
-                                <a class="link" href="{{ route('profile', auth()->user()->username) }}"><img class="mx-auto d-block" style="width: 50px; height: 50px; border-radius: 50%;" src="https://pngimage.net/wp-content/uploads/2018/06/no-photo-avatar-png-6.png"></a>
+                                <a class="link" href="{{ route('profile', auth()->user()->username) }}"><img class="mx-auto d-block" style="width: 50px; height: 50px; border-radius: 50%;" src="{{Storage::url('public/img/pfp/'.$us->pfp)}}"></a>
                             </div>
                             <form action="{{ route('makePost', auth()->user()->id)}}" method="post">
                                 <input class='buttonPost float-right' id="buttonAct" type="submit" name="" value="Post" disabled>
@@ -155,7 +157,7 @@
                                         @endforeach
                 </div>
             </div>
-              <div class="box3">
+              <div class="box3 col-md-3">
                 <div class="search_bar">
                     <input type="text" class="search" id="search" placeholder="Search">
                     <div class="results" id="results" hidden>

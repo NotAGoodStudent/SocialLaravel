@@ -94,13 +94,13 @@ body
     background-color: transparent;
     margin-top: 5px;
     display: flex;
+    box-shadow: 0 0 10px rgba(255,255,255, 1);
+    border-radius: 10px;
     flex-direction: column;
 }
 
-.suggestedFull
+.suggested_card_full
 {
-    box-shadow: 0 0 10px rgba(255,255,255, 1);
-    border-radius: 10px;
     margin: 50px 10px;
 }
 
@@ -280,14 +280,8 @@ textarea {
     cursor: pointer;
 }
 
-
-.box2
-{
-    width: 33.3%;
-}
 .box1, .box3
 {
-    width: 20%;
     margin: 10px 130px;
 }
 

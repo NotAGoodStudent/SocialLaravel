@@ -22,6 +22,8 @@ class CreateUsersTable extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->string('bio')->nullable();
+            $table->string('pfp')->nullable();
+            $table->string('background')->nullable();
             $table->boolean('is_admin');
             $table->boolean('is_banned');
             $table->rememberToken();

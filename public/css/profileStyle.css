@@ -183,8 +183,6 @@ body
 
 .postP, .postL, .postR
 {
-    top: 0;
-    width: 33.3%;
     padding: 14px 40px;
     border-right: 1px solid rgb(47, 51, 54);
     border-left: 1px solid rgb(47, 51, 54);

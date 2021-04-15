@@ -65,11 +65,11 @@
                     </div>
                 </div>
                 <div style=" margin-top: 50px;border-bottom: 1px solid rgb(47, 51, 54); text-align: center; background-color: rebeccapurple"></div>
-                <div class="data m-auto" id="myPostsP">
+                <div class="data m-auto d-flex" id="myPostsP">
                     @foreach($user->posts as $p)
-                        <div class="postP m-auto">
+                        <div class="postP col-md-4 m-auto">
                             <div class="userData">
-                                <a><img src="https://pngimage.net/wp-content/uploads/2018/06/no-photo-avatar-png-6.png" alt=""></a>
+                                <a><img src="{{Storage::url('public/img/pfp/'.$us->pfp)}}"></a>
                                 <div class="postText">
                                     <p class="postUsername">{{$user->username}} <span class="text-muted" style="font-size: 15px">{{'@'.$user->username}} . {{$p->created_at->diffForHumans()}}</span></p>
                                     <p class="postContent">{{$p->content}}</p>
@@ -84,7 +84,7 @@
                                             $retweeted = false;
                                         @endphp
                                         @foreach($p->retweets as $r)
-                                            @if(auth()->user()->id == $r->user_id)
+                                            @if($user->id == $r->user_id)
                                                 <li><a class="is-retweeted" id="rp{{$p->id}}" onclick="retweetP({{$p->id}})"><i class="fas fa-retweet"></i></a></li>
                                                 @php
                                                     $retweeted = true;
@@ -105,7 +105,7 @@
                                             $liked = false;
                                             @endphp
                                     @foreach($p->likes as $l)
-                                        @if(auth()->user()->id == $l->user_id)
+                                        @if($user->id == $l->user_id)
                                         <li><a class="is-liked" id="lp{{$p->id}}" onclick="likeP({{$p->id}})"></a></li>
                                                 @php
                                                     $liked = true;
@@ -127,7 +127,7 @@
                 </div>
 <!--                HIDDEN UNTIL LIKE IS CLICKED-->
 
-                <div class="data m-auto" id="myPostsL" style="display: none">
+                <div class="data m-auto d-flex" id="myPostsL" style="display: none">
                     @foreach($posts as $p)
 
                                 <!--CHECK IF POST IS LIKED BY CURRENT USER-->
@@ -137,8 +137,8 @@
                                         @endphp
 
                                         @foreach($p->likes as $l)
-                                             @if($l->user_id == auth()->user()->id)
-                                            <div class="postL m-auto" style="display: none">
+                                             @if($l->user_id == $user->id)
+                                            <div class="postL m-auto col-md-4" style="display: none">
                                                 <div class="userData">
                                                         @foreach($users as $us)
                                                             @foreach($us->posts as $po)
@@ -160,7 +160,7 @@
                                                         $retweeted = false;
                                                     @endphp
                                                     @foreach($p->retweets as $r)
-                                                        @if(auth()->user()->id == $r->user_id)
+                                                        @if($user->id == $r->user_id)
                                                             <li><a class="is-retweeted" id="rl{{$p->id}}" onclick="retweetL({{$p->id}})"><i class="fas fa-retweet"></i></a></li>
                                                             @php
                                                                 $retweeted = true;
@@ -185,7 +185,7 @@
                 </div>
 <!--            ONLY VISIBLE WHEN RETWEET MENU IS SELECTED-->
 
-            <div class="data m-auto" id="myPostsR" style="display: none">
+            <div class="data m-auto d-flex" id="myPostsR" style="display: none">
             @foreach($posts as $p)
 
                 <!--CHECK IF POST IS LIKED BY CURRENT USER-->
@@ -195,8 +195,8 @@
                         @endphp
 
                         @foreach($p->retweets as $r)
-                            @if($r->user_id == auth()->user()->id)
-                                <div class="postR m-auto" style="display: none">
+                            @if($r->user_id == $user->id)
+                                <div class="postR m-auto col-md-4" style="display: none">
                                     <div class="userData">
                                         @foreach($users as $us)
                                                 @foreach($us->posts as $po)
@@ -219,7 +219,7 @@
                                                     $liked = false;
                                                 @endphp
                                                 @foreach($p->likes as $l)
-                                                    @if(auth()->user()->id == $l->user_id)
+                                                    @if($user->id== $l->user_id)
                                                         <li><a class="is-liked" id="lr{{$p->id}}" onclick="likeR({{$p->id}})"></a></li>
                                                         @php
                                                             $liked = true;

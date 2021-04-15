@@ -37,3 +37,7 @@ Route::middleware('auth')->group(function(){
     Route::get('/post/unretweet/{post_id}', 'RetweetController@unretweetPost')->name('unretweet');
     Route::get('/topics/getTopics', 'TopicController@getTopics')->name('getTopics');
 });
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

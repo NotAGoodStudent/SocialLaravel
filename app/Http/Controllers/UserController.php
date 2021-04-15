@@ -13,6 +13,22 @@ use Illuminate\Support\Facades\DB;
 class UserController extends Controller
 {
 
+    public function hasImageAttached()
+    {
+        if(empty($_FILES['productImage'])) {
+            return true;
+        }
+        return false;
+    }
+
+    public function filterURL()
+    {
+        if(strpos($_FILES['productImage'], '.png')) {
+            return true;
+        }
+        return false;
+    }
+
     public function getUsers()
     {
         $users = User::all();
@@ -69,7 +85,7 @@ class UserController extends Controller
                     return redirect()->route('modifyProfile')->with('message', 'The desired email is already taken!');
                 }
                 else{
-                    if($request->filled('bio') && $request->filled('name') && $request->filled('surname') && $request->filled('email') && $request->filled('username'))
+                    if($request->filled('bio') && $request->filled('name') && $request->filled('surname') && $request->filled('email') && $request->filled('username') && $request->filled('pfp'))
                     {
                         $user->username = $request->input('username');
                         $user->bio = $request->input('bio');
