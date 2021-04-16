@@ -26,7 +26,7 @@
                         @endforeach
                     @if(!$exists and $us->id != auth()->user()->id)
                                 <div class="suggested">
-                                        <a class="link" href="{{ route('profile', $us->username) }}"><img style="width: 50px; height: 50px; border-radius: 50%" src="{{Storage::url('public/img/pfp/'.$us->pfp)}}"></a>
+                                        <a class="link" href="{{ route('profile', $us->username) }}"><img style="width: 50px; height: 50px; border-radius: 50%" src="{{Storage::url($us->pfp)}}"></a>
                                         <p class="postUsername">{{$us->username}} <span class="text-muted" style="font-size: 15px">{{'@'.$us->username}}</span></p>
                                         <a class="followButton float-right" id="f{{$us->id}}" onclick="follow({{$us->id}})">Follow</a   >
                                 </div>
@@ -83,7 +83,7 @@
                     <div class="thoughts">
                         <div class="textfield_container">
                             <div class="imgDiv" style="width: 100%; margin: 10px 20px;">
-                                <a class="link" href="{{ route('profile', auth()->user()->username) }}"><img class="mx-auto d-block" style="width: 50px; height: 50px; border-radius: 50%;" src="{{Storage::url('public/img/pfp/'.$us->pfp)}}"></a>
+                                <a class="link" href="{{ route('profile', auth()->user()->username) }}"><img class="mx-auto d-block" style="width: 50px; height: 50px; border-radius: 50%;" src="{{Storage::url($us->pfp)}}"></a>
                             </div>
                             <form action="{{ route('makePost', auth()->user()->id)}}" method="post">
                                 <input class='buttonPost float-right' id="buttonAct" type="submit" name="" value="Post" disabled>
@@ -99,7 +99,7 @@
                                                     @if($us->id == $f->id)
                                             <div class="postL">
                                                         <div class="userData">
-                                                            <a href="{{ route('profile', $us->username) }}"><img src="https://pngimage.net/wp-content/uploads/2018/06/no-photo-avatar-png-6.png" alt=""></a>
+                                                            <a href="{{ route('profile', $us->username) }}"><img src="{{Storage::url($us->pfp)}}" alt=""></a>
                                                             <div class="postText">
                                                                 <p class="postUsername">{{$us->username}} <span class="text-muted" style="font-size: 15px">{{'@'.$us->username}} . {{$p->created_at->diffForHumans()}}</span></p>
                                                                 <p class="postContent">{{$p->content}}</p>

@@ -9,24 +9,25 @@ use App\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-
+use Illuminate\Support\Facades\Storage;
 class UserController extends Controller
 {
 
-    public function hasImageAttached()
+    public function isImage($img)
     {
-        if(empty($_FILES['productImage'])) {
+        $allowed = array(
+            '.jpg',
+            '.jpeg',
+            '.gif',
+            '.png',
+            '.flv'
+        );
+        if (!in_array(strtolower(strrchr($img, '.')), $allowed)) {
+            return false;
+        }else {
+            echo 'validated';
             return true;
         }
-        return false;
-    }
-
-    public function filterURL()
-    {
-        if(strpos($_FILES['productImage'], '.png')) {
-            return true;
-        }
-        return false;
     }
 
     public function getUsers()
@@ -71,8 +72,12 @@ class UserController extends Controller
      * @param $id
      * @return \Illuminate\Http\RedirectResponse
      */
+
     public function updateUserData(Request $request, $id)
     {
+        //dump($request->ip());
+        //diplays all thr request data and stops the execution of the code!
+        //dd($request);
         $user = User::findOrFail($id);
         if(User::where('username', '=', $request->input('username'))->where('id', '!=', $id)->exists())
         {
@@ -85,8 +90,17 @@ class UserController extends Controller
                     return redirect()->route('modifyProfile')->with('message', 'The desired email is already taken!');
                 }
                 else{
-                    if($request->filled('bio') && $request->filled('name') && $request->filled('surname') && $request->filled('email') && $request->filled('username') && $request->filled('pfp'))
+                    if($request->filled('bio') && $request->filled('name') && $request->filled('surname') && $request->filled('email') && $request->filled('username'))
                     {
+                        $getExtension = $request->file('pfp')->getClientOriginalExtension();
+                       /* if(auth()->user()->pfp != 'default.png'){
+                            Storage::delete('public/img/pfp/', auth()->user()->pfp);
+                        }*/
+                        $fName = auth()->user()->id.$request->get('pfp');
+                        $vari = Storage::put('public/img/pfp', $request->file('pfp'));
+                        print_r($vari);
+                        //Storage::move('public/img/pfp/'.$request->file('pfp'), 'public/img/pfp/'.'pfp'.auth()->user()->id).'.'.$getExtension;
+                        $user->pfp = $vari;
                         $user->username = $request->input('username');
                         $user->bio = $request->input('bio');
                         $user->name = $request->input('name');

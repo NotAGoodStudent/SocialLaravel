@@ -10,7 +10,7 @@
                     <h5 class="text-muted m-auto"><span style="color: white">{{count($user->posts)}}</span> Posts</h5>
                     <h5 class="text-muted m-auto"><span id="followerCounter" style="color: white">{{count($user->followers)}}</span> Followers</h5>
                     <h5 class="text-muted m-auto"><span id="followingCounter" style="color: white">{{count($user->following)}}</span> Following</h5>
-                    <img class="profile_img m-auto" src="https://pngimage.net/wp-content/uploads/2018/06/no-photo-avatar-png-6.png" alt="">
+                    <img class="profile_img m-auto" src="{{Storage::url(auth()->user()->pfp)}}" alt="">
                 </div>
                 <img class="background_img" src="https://steamuserimages-a.akamaihd.net/ugc/940586530515504757/CDDE77CB810474E1C07B945E40AE4713141AFD76/" alt="">
                 <div class="buttonProf">
@@ -69,7 +69,7 @@
                     @foreach($user->posts as $p)
                         <div class="postP col-md-4 m-auto">
                             <div class="userData">
-                                <a><img src="{{Storage::url('public/img/pfp/'.$us->pfp)}}"></a>
+                                <a><img src="{{Storage::url($us->pfp)}}"></a>
                                 <div class="postText">
                                     <p class="postUsername">{{$user->username}} <span class="text-muted" style="font-size: 15px">{{'@'.$user->username}} . {{$p->created_at->diffForHumans()}}</span></p>
                                     <p class="postContent">{{$p->content}}</p>
@@ -143,7 +143,7 @@
                                                         @foreach($users as $us)
                                                             @foreach($us->posts as $po)
                                                                 @if($po->id == $l->post_id)
-                                                                <a href="{{ route('profile', $us->username) }}"><img src="https://pngimage.net/wp-content/uploads/2018/06/no-photo-avatar-png-6.png" alt=""></a>
+                                                                <a href="{{ route('profile', $us->username) }}"><img src="{{Storage::url($us->pfp)}}" alt=""></a>
                                                                 <div class="postText">
                                                         <p class="postUsername">{{$us->username}} <span class="text-muted" style="font-size: 15px">{{'@'.$us->username}} . {{$po->created_at->diffForHumans()}}</span></p>
                                                         <p class="postContent">{{$p->content}}</p>
@@ -201,7 +201,7 @@
                                         @foreach($users as $us)
                                                 @foreach($us->posts as $po)
                                                     @if($po->id == $r->post_id)
-                                                <a href="{{ route('profile', $us->username) }}"><img src="https://pngimage.net/wp-content/uploads/2018/06/no-photo-avatar-png-6.png" alt=""></a>
+                                                <a href="{{ route('profile', $us->username) }}"><img src="{{Storage::url($us->pfp)}}" alt=""></a>
                                                 <div class="postText">
                                                         <p class="postUsername">{{$us->username}} <span class="text-muted" style="font-size: 15px">{{'@'.$us->username}} . {{$po->created_at->diffForHumans()}}</span></p>
                                                         <p class="postContent">{{$p->content}}</p>
