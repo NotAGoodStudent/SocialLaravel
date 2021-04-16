@@ -10,7 +10,7 @@
                     <h5 class="text-muted m-auto"><span style="color: white">{{count($user->posts)}}</span> Posts</h5>
                     <h5 class="text-muted m-auto"><span id="followerCounter" style="color: white">{{count($user->followers)}}</span> Followers</h5>
                     <h5 class="text-muted m-auto"><span id="followingCounter" style="color: white">{{count($user->following)}}</span> Following</h5>
-                    <img class="profile_img m-auto" src="{{Storage::url(auth()->user()->pfp)}}" alt="">
+                    <img class="profile_img m-auto" src="{{Storage::url($user->pfp)}}" alt="">
                 </div>
                 <img class="background_img" src="https://steamuserimages-a.akamaihd.net/ugc/940586530515504757/CDDE77CB810474E1C07B945E40AE4713141AFD76/" alt="">
                 <div class="buttonProf">
