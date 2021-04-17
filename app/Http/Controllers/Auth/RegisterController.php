@@ -75,7 +75,7 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']),
             'bio'=> null,
             'pfp'=> 'public/img/pfp/default.png',
-            'background'=> null,
+            'background'=> 'public/img/background/default.jpg',
             'is_admin' => false,
             'is_banned' => false,
         ]);

@@ -83,7 +83,7 @@
                     <div class="thoughts">
                         <div class="textfield_container">
                             <div class="imgDiv" style="width: 100%; margin: 10px 20px;">
-                                <a class="link" href="{{ route('profile', auth()->user()->username) }}"><img class="mx-auto d-block" style="width: 50px; height: 50px; border-radius: 50%;" src="{{Storage::url($us->pfp)}}"></a>
+                                <a class="link" href="{{ route('profile', auth()->user()->username) }}"><img class="mx-auto d-block" style="width: 50px; height: 50px; border-radius: 50%;" src="{{Storage::url(auth()->user()->pfp)}}"></a>
                             </div>
                             <form action="{{ route('makePost', auth()->user()->id)}}" method="post">
                                 <input class='buttonPost float-right' id="buttonAct" type="submit" name="" value="Post" disabled>

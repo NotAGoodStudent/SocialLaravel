@@ -10,24 +10,31 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
+use function PHPUnit\Framework\isEmpty;
+
 class UserController extends Controller
 {
 
     public function isImage($img)
     {
-        $allowed = array(
-            '.jpg',
-            '.jpeg',
-            '.gif',
-            '.png',
-            '.flv'
+
+        $rules = array(
+            'image' => 'mimes:jpeg,jpg,png|required|max:10000' // max 10000kb
         );
-        if (!in_array(strtolower(strrchr($img, '.')), $allowed)) {
+
+
+        $fileArr = array('image'=>$img);
+        $validator = Validator::make($fileArr, $rules);
+
+        // Check to see if validation fails or passes
+        if ($validator->fails())
+        {
             return false;
-        }else {
-            echo 'validated';
+        } else
+        {
             return true;
-        }
+        };
     }
 
     public function getUsers()
@@ -90,26 +97,75 @@ class UserController extends Controller
                     return redirect()->route('modifyProfile')->with('message', 'The desired email is already taken!');
                 }
                 else{
-                    if($request->filled('bio') && $request->filled('name') && $request->filled('surname') && $request->filled('email') && $request->filled('username'))
-                    {
-                        $getExtension = $request->file('pfp')->getClientOriginalExtension();
-                       /* if(auth()->user()->pfp != 'default.png'){
-                            Storage::delete('public/img/pfp/', auth()->user()->pfp);
-                        }*/
-                        $fName = auth()->user()->id.$request->get('pfp');
-                        $vari = Storage::put('public/img/pfp', $request->file('pfp'));
-                        print_r($vari);
-                        //Storage::move('public/img/pfp/'.$request->file('pfp'), 'public/img/pfp/'.'pfp'.auth()->user()->id).'.'.$getExtension;
-                        $user->pfp = $vari;
-                        $user->username = $request->input('username');
-                        $user->bio = $request->input('bio');
-                        $user->name = $request->input('name');
-                        $user->surname = $request->input('surname');
-                        $user->email = $request->input('email');
-                        $user->save();
-                        return redirect()->route('modifyProfile')->with('message', 'Data updated successfully!');
+                    if($request->file('pfp') != null && $request->file('background') != null) {
+                        if ($request->filled('bio') && $request->filled('name') && $request->filled('surname') && $request->filled('email') && $request->filled('username') && $this->isImage($request->file('pfp')) && $this->isImage($request->file('background'))) {
+                            if (auth()->user()->pfp != 'default.png' && auth()->user()->background != 'default.jpg') {
+                                Storage::delete(auth()->user()->pfp);
+                                Storage::delete(auth()->user()->background);
+                            }
+                            $vari = Storage::put('public/img/pfp', $request->file('pfp'));
+                            $varx = Storage::put('public/img/background', $request->file('background'));
+                            $user->pfp = $vari;
+                            $user->background = $varx;
+                            $user->username = $request->input('username');
+                            $user->bio = $request->input('bio');
+                            $user->name = $request->input('name');
+                            $user->surname = $request->input('surname');
+                            $user->email = $request->input('email');
+                            $user->save();
+                            return redirect()->route('modifyProfile')->with('message', 'Data updated successfully!');
+                        } else return redirect()->route('modifyProfile')->with('message', 'Some fields might be empty!');
                     }
-                    else return redirect()->route('modifyProfile')->with('message', 'Some fields might be empty!');
+
+                        if($request->file('pfp') != null) {
+                            if ($request->filled('bio') && $request->filled('name') && $request->filled('surname') && $request->filled('email') && $request->filled('username') && $this->isImage($request->file('pfp'))) {
+                                if(auth()->user()->pfp != 'default.png'){
+                                    Storage::delete(auth()->user()->pfp);
+                                }
+                                $vari = Storage::put('public/img/pfp', $request->file('pfp'));
+                                $user->pfp = $vari;
+                                $user->username = $request->input('username');
+                                $user->bio = $request->input('bio');
+                                $user->name = $request->input('name');
+                                $user->surname = $request->input('surname');
+                                $user->email = $request->input('email');
+                                $user->save();
+                                return redirect()->route('modifyProfile')->with('message', 'Data updated successfully!');
+                            }
+                            else return redirect()->route('modifyProfile')->with('message', 'Some fields might be empty!');
+                    }
+
+                    if($request->file('background') != null) {
+                        if ($request->filled('bio') && $request->filled('name') && $request->filled('surname') && $request->filled('email') && $request->filled('username') && $this->isImage($request->file('background'))) {
+                            if(auth()->user()->background != 'default.jpg'){
+                                Storage::delete(auth()->user()->background);
+                            }
+                            $vari = Storage::put('public/img/background', $request->file('background'));
+                            $user->background = $vari;
+                            $user->username = $request->input('username');
+                            $user->bio = $request->input('bio');
+                            $user->name = $request->input('name');
+                            $user->surname = $request->input('surname');
+                            $user->email = $request->input('email');
+                            $user->save();
+                            return redirect()->route('modifyProfile')->with('message', 'Data updated successfully!');
+                        }
+                        else return redirect()->route('modifyProfile')->with('message', 'Some fields might be empty!');
+                    }
+                    else{
+                        if ($request->filled('bio') && $request->filled('name') && $request->filled('surname') && $request->filled('email') && $request->filled('username')){
+
+                            $user->username = $request->input('username');
+                            $user->bio = $request->input('bio');
+                            $user->name = $request->input('name');
+                            $user->surname = $request->input('surname');
+                            $user->email = $request->input('email');
+                            $user->save();
+                            return redirect()->route('modifyProfile')->with('message', 'Data updated successfully!');
+
+                        }
+                        else return redirect()->route('modifyProfile')->with('message', 'Some fields might be empty!');
+                    }
                 }
             }
 

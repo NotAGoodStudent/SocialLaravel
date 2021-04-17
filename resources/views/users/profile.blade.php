@@ -12,7 +12,7 @@
                     <h5 class="text-muted m-auto"><span id="followingCounter" style="color: white">{{count($user->following)}}</span> Following</h5>
                     <img class="profile_img m-auto" src="{{Storage::url($user->pfp)}}" alt="">
                 </div>
-                <img class="background_img" src="https://steamuserimages-a.akamaihd.net/ugc/940586530515504757/CDDE77CB810474E1C07B945E40AE4713141AFD76/" alt="">
+                <img class="background_img" src="{{Storage::url($user->background)}}" alt="">
                 <div class="buttonProf">
                     <div class="calCont">
                     <h5 class="m-auto text-muted">
