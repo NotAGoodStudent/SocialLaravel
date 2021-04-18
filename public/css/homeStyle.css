@@ -34,6 +34,7 @@ body
 }
 .content
 {
+
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -241,9 +242,41 @@ textarea {
 
 .textfield_container
 {
-    border: 1px solid rgb(47, 51, 54);
+    border-top: 1px solid rgb(47, 51, 54);
+    border-right: 1px solid rgb(47, 51, 54);
+    border-left: 1px solid rgb(47, 51, 54);
+
 }
 
+.imgIcon
+{
+    color: #007FFF;
+    font-size: 3vh;
+    margin: 10px 20px;
+}
+
+.imgIcon:hover
+{
+    color: #0066c1;
+}
+
+.imgIcon:hover
+{
+    cursor: pointer;
+}
+
+.ic
+{
+    width: 100%;
+    border-bottom: 1px solid rgb(47, 51, 54);
+    border-top: 1px solid rgb(47, 51, 54);
+}
+
+.imgPost{
+
+    width: 100%;
+    border-radius: 25px;
+}
 .link
 {
     margin: 10px 5px;

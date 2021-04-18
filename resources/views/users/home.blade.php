@@ -61,7 +61,7 @@
                         @endforeach
                         @if(!$exists and $us->id != auth()->user()->id)
                             <div class="suggestedFull">
-                                <a class="link" href="{{ route('profile', $us->username) }}"><img style="width: 50px; height: 50px; border-radius: 50%" src="{{Storage::url('public/img/pfp/'.$us->pfp)}}"></a>
+                                <a class="link" href="{{ route('profile', $us->username) }}"><img style="width: 50px; height: 50px; border-radius: 50%" src="{{Storage::url($us->pfp)}}"></a>
                                 <p class="postUsername">{{$us->username}} <span class="text-muted" style="font-size: 15px">{{'@'.$us->username}}</span></p>
                                 <a class="followButton float-right" id="f{{$us->id}}" onclick="follow({{$us->id}})">Follow</a>
                             </div>
@@ -89,6 +89,17 @@
                                 <input class='buttonPost float-right' id="buttonAct" type="submit" name="" value="Post" disabled>
                                 @csrf
                                 <textarea onclick="activateArea()" id="txtarea" name="post" class="txt-area mx-auto d-block" placeholder="What are your thoughts {{auth()->user()->username}}?"></textarea>
+                                <div class="linkIMG">
+
+                                </div>
+                                <div class="ic m-auto d-flex justify-content-around">
+                                    <span onclick="" id="iconClicked" class="imgIcon fas fa-image"></span>
+                                    <input type="file" class="uploadImage" id="uploadImage" hidden>
+                                    <span onclick="" id="iconClicked2" class="imgIcon fa fa-file-video"></span>
+                                    <input type="file" class="uploadGIF" id="uploadGIF" hidden>
+                                    <span onclick="" id="iconClicked3" class="imgIcon fas fa-video"></span>
+                                    <input type="file" class="uploadVideo" id="uploadVideo" hidden>
+                                </div>
                             </form>
                         </div>
                     </div>
@@ -167,6 +178,34 @@
         </div>
         <script>
            $(document).ready(function (){
+
+               $('#iconClicked').click(function (){
+                   console.log('detected');
+                    $('#uploadImage').click();
+               });
+
+              $('#uploadImage').change(function () {
+                   console.log('yuppp');
+                  var file = this.files[0];
+                  var fileType = file["type"];
+                  var validImageTypes = ["image/jpg", "image/jpeg", "image/png"];
+                  if ($.inArray(fileType, validImageTypes) < 0) {
+                      // invalid file type code goes here.
+
+                  }
+                  else{
+
+                  }
+
+                /* var img = $('<img />',
+                      {
+                          class: 'imgPost',
+                          src: $('#uploadImgPost').val(),
+                      })
+                      .appendTo($('#linkIMG'));*/
+              });
+
+
 
                topics = new Array();
                $.ajax({

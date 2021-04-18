@@ -10,10 +10,10 @@
                 <h2 class="title">Edit Profile</h2>
                 <div class="m-auto d-flex" style="width: 100%; position: center">
                     <div class="hideInput d-inline-block m-auto">
-                        <input type="file" class="imageUpload m-auto" name="pfp" id="pfp">
-                        <img src="{{Storage::url(auth()->user()->pfp)}}" class="uploadPFP m-auto d-flex" alt="">
-                        <input type="file" class="backgroundUpload m-auto" name="background" id="backgrounf">
-                        <img src="{{Storage::url(auth()->user()->background)}}" class="uploadBackground m-auto d-flex" alt="">
+                        <input type="file" class="imageUpload m-auto" name="pfp" id="pfp" hidden>
+                        <img src="{{Storage::url(auth()->user()->pfp)}}" id="uploadPFP" name="uploadPFP" class="uploadPFP m-auto d-flex" alt="">
+                        <input type="file" class="backgroundUpload m-auto" name="background" id="background" hidden>
+                        <img src="{{Storage::url(auth()->user()->background)}}" id="uploadBackground" name="uploadBAckground" class="uploadBackground m-auto d-flex" alt="">
                     </div>
                 </div>
                 <label class="mx-auto d-block labels" for="username">Username</label>
@@ -39,4 +39,16 @@
         </div>
     </div>
     </body>
+    <script>
+        $(document).ready(function (){
+            $('#uploadPFP').click(function (){
+                $('#pfp').click();
+            });
+
+            $('#uploadBackground').click(function (){
+                $('#background').click();
+            });
+        });
+
+    </script>
 @endsection

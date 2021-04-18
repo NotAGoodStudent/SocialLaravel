@@ -69,7 +69,7 @@
                     @foreach($user->posts as $p)
                         <div class="postP col-md-4 m-auto">
                             <div class="userData">
-                                <a><img src="{{Storage::url($us->pfp)}}"></a>
+                                <a><img src="{{Storage::url($user->pfp)}}"></a>
                                 <div class="postText">
                                     <p class="postUsername">{{$user->username}} <span class="text-muted" style="font-size: 15px">{{'@'.$user->username}} . {{$p->created_at->diffForHumans()}}</span></p>
                                     <p class="postContent">{{$p->content}}</p>

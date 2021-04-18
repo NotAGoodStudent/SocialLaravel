@@ -99,7 +99,7 @@ class UserController extends Controller
                 else{
                     if($request->file('pfp') != null && $request->file('background') != null) {
                         if ($request->filled('bio') && $request->filled('name') && $request->filled('surname') && $request->filled('email') && $request->filled('username') && $this->isImage($request->file('pfp')) && $this->isImage($request->file('background'))) {
-                            if (auth()->user()->pfp != 'default.png' && auth()->user()->background != 'default.jpg') {
+                            if (auth()->user()->pfp != 'public/img/pfp/default.png' && auth()->user()->background != 'public/img/background/default.jpg') {
                                 Storage::delete(auth()->user()->pfp);
                                 Storage::delete(auth()->user()->background);
                             }
@@ -119,7 +119,7 @@ class UserController extends Controller
 
                         if($request->file('pfp') != null) {
                             if ($request->filled('bio') && $request->filled('name') && $request->filled('surname') && $request->filled('email') && $request->filled('username') && $this->isImage($request->file('pfp'))) {
-                                if(auth()->user()->pfp != 'default.png'){
+                                if(auth()->user()->pfp != 'public/img/pfp/default.png'){
                                     Storage::delete(auth()->user()->pfp);
                                 }
                                 $vari = Storage::put('public/img/pfp', $request->file('pfp'));
@@ -137,7 +137,7 @@ class UserController extends Controller
 
                     if($request->file('background') != null) {
                         if ($request->filled('bio') && $request->filled('name') && $request->filled('surname') && $request->filled('email') && $request->filled('username') && $this->isImage($request->file('background'))) {
-                            if(auth()->user()->background != 'default.jpg'){
+                            if(auth()->user()->background != 'public/img/background/default.jpg'){
                                 Storage::delete(auth()->user()->background);
                             }
                             $vari = Storage::put('public/img/background', $request->file('background'));
