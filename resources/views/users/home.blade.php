@@ -85,16 +85,13 @@
                             <div class="imgDiv" style="width: 100%; margin: 10px 20px;">
                                 <a class="link" href="{{ route('profile', auth()->user()->username) }}"><img class="mx-auto d-block" style="width: 50px; height: 50px; border-radius: 50%;" src="{{Storage::url(auth()->user()->pfp)}}"></a>
                             </div>
-                            <form action="{{ route('makePost', auth()->user()->id)}}" method="post">
+                            <form action="{{ route('makePost', auth()->user()->id)}}" enctype="multipart/form-data" method="post">
                                 <input class='buttonPost float-right' id="buttonAct" type="submit" name="" value="Post" disabled>
                                 @csrf
                                 <textarea onclick="activateArea()" id="txtarea" name="post" class="txt-area mx-auto d-block" placeholder="What are your thoughts {{auth()->user()->username}}?"></textarea>
-                                <div class="linkIMG">
-
-                                </div>
                                 <div class="ic m-auto d-flex justify-content-around">
                                     <span onclick="" id="iconClicked" class="imgIcon fas fa-image"></span>
-                                    <input type="file" class="uploadImage" id="uploadImage" hidden>
+                                    <input type="file" class="uploadImg" name="uploadImage" id="uploadImage" hidden>
                                     <span onclick="" id="iconClicked2" class="imgIcon fa fa-file-video"></span>
                                     <input type="file" class="uploadGIF" id="uploadGIF" hidden>
                                     <span onclick="" id="iconClicked3" class="imgIcon fas fa-video"></span>
@@ -115,6 +112,11 @@
                                                                 <p class="postUsername">{{$us->username}} <span class="text-muted" style="font-size: 15px">{{'@'.$us->username}} . {{$p->created_at->diffForHumans()}}</span></p>
                                                                 <p class="postContent">{{$p->content}}</p>
                                                             </div>
+                                                            @if($p->image != null)
+                                                                <div class="divImg m-auto">
+                                                                    <img src="{{Storage::url($p->image)}}" class="imgPost">
+                                                                </div>
+                                                                @endif
                                                         </div>
                                                         <div class="hideIconsL col-md-12">
                                                             <ul class="social-network social-circle">
@@ -184,26 +186,25 @@
                     $('#uploadImage').click();
                });
 
-              $('#uploadImage').change(function () {
-                   console.log('yuppp');
-                  var file = this.files[0];
-                  var fileType = file["type"];
-                  var validImageTypes = ["image/jpg", "image/jpeg", "image/png"];
-                  if ($.inArray(fileType, validImageTypes) < 0) {
+              //$('#uploadImage').change(function () {
+                   //console.log('yuppp');
+                  //var file = this.files[0];
+                  //var fileType = file["type"];
+                  //var validImageTypes = ["image/jpg", "image/jpeg", "image/png"];
+                  //if ($.inArray(fileType, validImageTypes) < 0) {
                       // invalid file type code goes here.
 
-                  }
-                  else{
+                  //}
+                  //else{
+                      //var img = $('<img />',
+                          //{
+                              //class: 'imgPost',
+                              //src: $('#uploadImgPost').val(),
+                          //})
+                          //.appendTo($('#linkIMG'));
 
-                  }
-
-                /* var img = $('<img />',
-                      {
-                          class: 'imgPost',
-                          src: $('#uploadImgPost').val(),
-                      })
-                      .appendTo($('#linkIMG'));*/
-              });
+                  //}
+              //});
 
 
 

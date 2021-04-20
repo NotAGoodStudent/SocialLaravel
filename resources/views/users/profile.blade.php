@@ -74,6 +74,11 @@
                                     <p class="postUsername">{{$user->username}} <span class="text-muted" style="font-size: 15px">{{'@'.$user->username}} . {{$p->created_at->diffForHumans()}}</span></p>
                                     <p class="postContent">{{$p->content}}</p>
                                 </div>
+                                @if($p->image != null)
+                                    <div class="divImg">
+                                        <img src="{{Storage::url($p->image)}}" class="imgPost">
+                                    </div>
+                                @endif
                             </div>
                             <div class="hideIconsP col-md-12">
                                 <ul class="social-network social-circle">
@@ -127,9 +132,8 @@
                 </div>
 <!--                HIDDEN UNTIL LIKE IS CLICKED-->
 
-                <div class="data m-auto d-flex" id="myPostsL" style="display: none">
+                <div class="data d-flex flex-column" id="myPostsL" style="display: none">
                     @foreach($posts as $p)
-
                                 <!--CHECK IF POST IS LIKED BY CURRENT USER-->
                                     @if(count($p->likes) > 0)
                                         @php
@@ -145,12 +149,17 @@
                                                                 @if($po->id == $l->post_id)
                                                                 <a href="{{ route('profile', $us->username) }}"><img src="{{Storage::url($us->pfp)}}" alt=""></a>
                                                                 <div class="postText">
-                                                        <p class="postUsername">{{$us->username}} <span class="text-muted" style="font-size: 15px">{{'@'.$us->username}} . {{$po->created_at->diffForHumans()}}</span></p>
-                                                        <p class="postContent">{{$p->content}}</p>
+                                                                    <p class="postUsername">{{$us->username}} <span class="text-muted" style="font-size: 15px">{{'@'.$us->username}} . {{$po->created_at->diffForHumans()}}</span></p>
+                                                                    <p class="postContent">{{$p->content}}</p>
+                                                                </div>
+                                                                @if($p->image != null)
+                                                                    <div class="divImg">
+                                                                        <img src="{{Storage::url($p->image)}}" class="imgPost">
+                                                                    </div>
+                                                                @endif
                                                                 @endif
                                                             @endforeach
                                                         @endforeach
-                                                    </div>
                                                 </div>
                                                 <div class="hideIconsL col-md-12" style="display: none">
                                                     <ul class="social-network social-circle">
@@ -177,15 +186,15 @@
                                                         <li><a class="is-liked" id="ll{{$p->id}}" onclick="likeL({{$p->id}})"></a></li>
                                                         @endif
                                                         @endforeach
+                                                    </ul>
+                                                </div>
+                                            </div>
                                     @endif
-                                </ul>
-                            </div>
-                        </div>
                     @endforeach
                 </div>
 <!--            ONLY VISIBLE WHEN RETWEET MENU IS SELECTED-->
 
-            <div class="data m-auto d-flex" id="myPostsR" style="display: none">
+            <div class="data m-auto d-flex flex-column" id="myPostsR" style="display: none">
             @foreach($posts as $p)
 
                 <!--CHECK IF POST IS LIKED BY CURRENT USER-->
@@ -205,10 +214,15 @@
                                                 <div class="postText">
                                                         <p class="postUsername">{{$us->username}} <span class="text-muted" style="font-size: 15px">{{'@'.$us->username}} . {{$po->created_at->diffForHumans()}}</span></p>
                                                         <p class="postContent">{{$p->content}}</p>
+                                                </div>
+                                                    @if($p->image != null)
+                                                        <div class="divImg">
+                                                            <img src="{{Storage::url($p->image)}}" class="imgPost">
+                                                        </div>
+                                                    @endif
                                                     @endif
                                                 @endforeach
                                             @endforeach
-                                        </div>
                                     </div>
                                     <div class="hideIconsR col-md-12" style="display: none">
                                         <ul class="social-network social-circle">
@@ -235,10 +249,10 @@
                                             @endif
                                             @endif
                                             @endforeach
-                                            @endif
                                         </ul>
                                     </div>
                                 </div>
+                                            @endif
                                 @endforeach
             </div>
         </div>

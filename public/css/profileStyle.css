@@ -26,6 +26,12 @@ body
     float: left;
 }
 
+.imgPost{
+
+    width: 85%;
+    border-radius: 15px;
+    margin-left: 70px;
+}
 
 .username
 {
@@ -170,20 +176,16 @@ body
 
 .data
 {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
     width: 100%;
 }
 
 .userData
 {
-    padding-left: 70px;
+    margin: 10px 20px;
 }
 
 .postP, .postL, .postR
 {
-    padding: 14px 40px;
     border-right: 1px solid rgb(47, 51, 54);
     border-left: 1px solid rgb(47, 51, 54);
     border-bottom: 1px solid rgb(47, 51, 54);

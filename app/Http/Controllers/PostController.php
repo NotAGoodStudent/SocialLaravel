@@ -6,6 +6,8 @@ use App\Post;
 use App\Topic;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 
 class PostController extends Controller
 {
@@ -15,6 +17,28 @@ class PostController extends Controller
      * @param $id
      * @return \Illuminate\Http\RedirectResponse
      */
+
+    public function isImage($img)
+    {
+
+        $rules = array(
+            'image' => 'mimes:jpeg,jpg,png|required|max:10000' // max 10000kb
+        );
+
+
+        $fileArr = array('image'=>$img);
+        $validator = Validator::make($fileArr, $rules);
+
+        // Check to see if validation fails or passes
+        if ($validator->fails())
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    }
     //We get the request and the id of the user, in orfer to check if the post contains a hashtag we split the content and iterate through it
     //checking if it contains a topic starting with a '#', we are able to do that thanks to the regex, if it does it'll get that record from the database and
     //assign it to the post->topic_id else it'll create a new topic with the hashtag's name
@@ -22,14 +46,18 @@ class PostController extends Controller
     {
         $post = new Post();
         $post->owner = $id;
+        if($request->file('uploadImage') != null) {
+            if ($this->isImage($request->file('uploadImage'))) {
+                $postImg = Storage::put('public/img/postImg', $request->file('uploadImage'));
+                $post->image = $postImg;
+            }
+        }
         $post->content = $request->input('post');
         $content = explode(" ", $request->input('post'));
         $topicStr = null;
         $found = false;
-        echo count($content);
         foreach ($content as $c)
         {
-            echo $c .' ';
             if(preg_match_all('/^\s*#([\p{Pc}\p{N}\p{L}\p{Mn}]{1,50})$/um', $c))
             {
                 $topicStr = $c;
@@ -62,4 +90,5 @@ class PostController extends Controller
 
 
     }
+
 }
