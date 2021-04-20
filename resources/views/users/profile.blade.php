@@ -65,7 +65,7 @@
                     </div>
                 </div>
                 <div style=" margin-top: 50px;border-bottom: 1px solid rgb(47, 51, 54); text-align: center; background-color: rebeccapurple"></div>
-                <div class="data m-auto d-flex" id="myPostsP">
+                <div class="data m-auto d-flex flex-column" id="myPostsP">
                     @foreach($user->posts as $p)
                         <div class="postP col-md-4 m-auto">
                             <div class="userData">
@@ -247,14 +247,16 @@
                                             @else
                                                 <li><a class="like" id="lr{{$p->id}}" onclick="likeR({{$p->id}})"></a></li>
                                             @endif
-                                            @endif
-                                            @endforeach
                                         </ul>
                                     </div>
                                 </div>
                                             @endif
+                                            @endforeach
+                                            @endif
                                 @endforeach
             </div>
+
+
         </div>
         </div>
     </div>
