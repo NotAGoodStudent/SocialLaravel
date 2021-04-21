@@ -61,7 +61,7 @@
                         @endforeach
                         @if(!$exists and $us->id != auth()->user()->id)
                             <div class="suggestedFull">
-                                <a class="link" href="{{ route('profile', $us->username) }}"><img style="width: 50px; height: 50px; border-radius: 50%" src="{{Storage::url($us->pfp)}}"></a>
+                                <a class="link" href="{{ route('profile', $us->username) }}"><img style="width: 100%; height: 50px; border-radius: 50%" src="{{Storage::url($us->pfp)}}"></a>
                                 <p class="postUsername">{{$us->username}} <span class="text-muted" style="font-size: 15px">{{'@'.$us->username}}</span></p>
                                 <a class="followButton float-right" id="f{{$us->id}}" onclick="follow({{$us->id}})">Follow</a>
                             </div>
@@ -83,7 +83,27 @@
                     <div class="thoughts">
                         <div class="textfield_container">
                             <div class="imgDiv" style="width: 100%; margin: 10px 20px;">
-                                <a class="link" href="{{ route('profile', auth()->user()->username) }}"><img class="mx-auto d-block" style="width: 50px; height: 50px; border-radius: 50%;" src="{{Storage::url(auth()->user()->pfp)}}"></a>
+                                <a class="link" href="{{ route('profile', auth()->user()->username) }}"><img class="mx-auto d-block" style="width: 100%; height: 50px; border-radius: 50%;" src="{{Storage::url(auth()->user()->pfp)}}"></a>
+                            </div>
+                            <form action="{{ route('makePost', auth()->user()->id)}}" enctype="multipart/form-data" method="post">
+                                <input class='buttonPost float-right' id="buttonAct" type="submit" name="" value="Post" disabled>
+                                @csrf
+                                <textarea onclick="activateArea()" id="txtarea" name="post" class="txt-area mx-auto d-block" placeholder="What are your thoughts {{auth()->user()->username}}?"></textarea>
+                                <div class="ic m-auto d-flex justify-content-around">
+                                    <span onclick="" id="iconClicked" class="imgIcon fas fa-image"></span>
+                                    <input type="file" class="uploadImg" name="uploadImage" id="uploadImage" hidden>
+                                    <span onclick="" id="iconClicked2" class="imgIcon fa fa-file-video"></span>
+                                    <input type="file" class="uploadGIF" id="uploadGIF" hidden>
+                                    <span onclick="" id="iconClicked3" class="imgIcon fas fa-video"></span>
+                                    <input type="file" class="uploadVideo" id="uploadVideo" hidden>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="reply col-md-4" hidden>
+                        <div class="replyPost">
+                            <div class="userData">
+
                             </div>
                             <form action="{{ route('makePost', auth()->user()->id)}}" enctype="multipart/form-data" method="post">
                                 <input class='buttonPost float-right' id="buttonAct" type="submit" name="" value="Post" disabled>
@@ -323,7 +343,6 @@
                    });
                }
            }
-
 
            function activateArea()
            {

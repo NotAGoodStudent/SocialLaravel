@@ -248,6 +248,13 @@ textarea {
 
 }
 
+
+.reply{
+    width: 100%;
+    z-index: 1;
+    background-color: #060606;
+    border-radius: 15px;
+}
 .imgIcon
 {
     color: #007FFF;
@@ -330,14 +337,21 @@ textarea {
 
 .postP, .postL, .postR
 {
+    background-color: #060606;
     border-right: 1px solid rgb(47, 51, 54);
     border-left: 1px solid rgb(47, 51, 54);
     border-bottom: 1px solid rgb(47, 51, 54);
 }
 
+.postP:hover, .postL:hover, .postR:hover{
+    background-color: #0b0b0b;
+    cursor: pointer;
+
+}
 .userData > a > img
 {
     width: 50px;
+    height: 50px;
     border-radius: 50%;
     z-index: 1;
     float: left;

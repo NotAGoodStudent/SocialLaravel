@@ -64,7 +64,7 @@
                         <a class="links m-auto" id="retweetsLink" style="cursor: pointer" onclick="showRetweets()">Retweets</a>
                     </div>
                 </div>
-                <div style=" margin-top: 50px;border-bottom: 1px solid rgb(47, 51, 54); text-align: center; background-color: rebeccapurple"></div>
+                <div style=" margin-top: 50px;border-bottom: 1px solid rgb(47, 51, 54); text-align: center"></div>
                 <div class="data m-auto d-flex flex-column" id="myPostsP">
                     @foreach($user->posts as $p)
                         <div class="postP col-md-4 m-auto">
@@ -261,6 +261,7 @@
         </div>
     </div>
     <script>
+
         function showPosts()
         {
             $("#retweetsLink").removeClass('linkSelected');
