@@ -100,32 +100,12 @@
                             </form>
                         </div>
                     </div>
-                    <div class="reply col-md-4" hidden>
-                        <div class="replyPost">
-                            <div class="userData">
-
-                            </div>
-                            <form action="{{ route('makePost', auth()->user()->id)}}" enctype="multipart/form-data" method="post">
-                                <input class='buttonPost float-right' id="buttonAct" type="submit" name="" value="Post" disabled>
-                                @csrf
-                                <textarea onclick="activateArea()" id="txtarea" name="post" class="txt-area mx-auto d-block" placeholder="What are your thoughts {{auth()->user()->username}}?"></textarea>
-                                <div class="ic m-auto d-flex justify-content-around">
-                                    <span onclick="" id="iconClicked" class="imgIcon fas fa-image"></span>
-                                    <input type="file" class="uploadImg" name="uploadImage" id="uploadImage" hidden>
-                                    <span onclick="" id="iconClicked2" class="imgIcon fa fa-file-video"></span>
-                                    <input type="file" class="uploadGIF" id="uploadGIF" hidden>
-                                    <span onclick="" id="iconClicked3" class="imgIcon fas fa-video"></span>
-                                    <input type="file" class="uploadVideo" id="uploadVideo" hidden>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
                             @foreach(auth()->user()->following as $f)
                                 @foreach($posts as $p)
                                     @if($p->owner == $f->id)
                                                 @foreach($users as $us)
                                                     @if($us->id == $f->id)
-                                            <div class="postL">
+                                            <div class="postL" id="postL">
                                                         <div class="userData">
                                                             <a href="{{ route('profile', $us->username) }}"><img src="{{Storage::url($us->pfp)}}" alt=""></a>
                                                             <div class="postText">
@@ -140,7 +120,7 @@
                                                         </div>
                                                         <div class="hideIconsL col-md-12">
                                                             <ul class="social-network social-circle">
-                                                                <li><a class="comment"><i class="far fa-comment"></i></a></li>
+                                                                <li><a class="comment" onclick="reply({{$p->id}})"><i class="far fa-comment"></i></a></li>
                                                                 @if(count($p->retweets) > 0)
                                                                     @php
                                                                         $retweeted = false;
@@ -183,6 +163,24 @@
                                                             </ul>
                                                         </div>
                                             </div>
+                                        <div class="reply_to_post" id="reply_to_post{{$p->id}}" style="display: none">
+                                            <div class="reply_data d-inline-block justify-content-around" style="width: 100%; margin: 10px 20px">
+                                                <div style="width: 10%" class="float-right">
+                                                    <a onclick="closeReply({{$p->id}})" class="close_reply_div fas fa-times"></a>
+                                                </div>
+                                                <a class="link" href="{{ route('profile', auth()->user()->username)}}"><img style="width: 100%; height: 50px; border-radius: 50%" src="{{Storage::url(auth()->user()->pfp)}}"></a>
+                                                <p class="postUsername" style="margin-left: 70px">{{auth()->user()->username}} <span class="text-muted" style="font-size: 15px">{{'@'.auth()->user()->username}}</span></p>
+                                            </div>
+                                                <textarea onclick="activateArea()" id="txtarea" name="post" class="txt-area mx-auto d-block" placeholder="Tweet your reply"></textarea>
+                                            <div class="ic_reply m-auto d-flex justify-content-around">
+                                                <span onclick="" id="iconClicked" class="imgIcon_reply fas fa-image"></span>
+                                                <input type="file" class="uploadImg" name="uploadImage" id="uploadImage" hidden>
+                                                <span onclick="" id="iconClicked2" class="imgIcon_reply fa fa-file-video"></span>
+                                                <input type="file" class="uploadGIF" id="uploadGIF" hidden>
+                                                <span onclick="" id="iconClicked3" class="imgIcon_reply fas fa-video"></span>
+                                                <input type="file" class="uploadVideo" id="uploadVideo" hidden>
+                                            </div>
+                                        </div>
                                                         @endif
                                                 @endforeach
                                             @endif
@@ -199,7 +197,20 @@
             </div>
         </div>
         <script>
+
+
+            function closeReply(id)
+            {
+                    $('#reply_to_post'+id).slideUp("slow", "linear");
+            }
+
+            function reply(id)
+            {
+                $('#reply_to_post'+id).slideDown("slow", "linear");
+            }
+
            $(document).ready(function (){
+
 
                $('#iconClicked').click(function (){
                    console.log('detected');

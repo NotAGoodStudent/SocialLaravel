@@ -249,11 +249,27 @@ textarea {
 }
 
 
-.reply{
-    width: 100%;
-    z-index: 1;
+.reply_to_post{
     background-color: #060606;
-    border-radius: 15px;
+    width: 100%;
+    border-right: 1px solid rgb(47, 51, 54);
+    border-left: 1px solid rgb(47, 51, 54);
+    border-bottom: 1px solid rgb(47, 51, 54);
+}
+
+
+.close_reply_div
+{
+    font-size: 25px;
+    text-decoration: none;
+    color: #007FFF;
+}
+
+.close_reply_div:hover
+{
+    text-decoration: none;
+    color: #0066c1;
+    cursor: pointer;
 }
 .imgIcon
 {
@@ -261,15 +277,22 @@ textarea {
     font-size: 3vh;
     margin: 10px 20px;
 }
-
-.imgIcon:hover
-{
-    color: #0066c1;
-}
-
 .imgIcon:hover
 {
     cursor: pointer;
+    color: #0066c1;
+}
+
+.imgIcon_reply
+{
+    color: #007FFF;
+    font-size: 2vh;
+    margin: 10px 20px;
+}
+.imgIcon_reply:hover
+{
+    cursor: pointer;
+    color: #0066c1;
 }
 
 .ic
@@ -278,6 +301,13 @@ textarea {
     border-bottom: 1px solid rgb(47, 51, 54);
     border-top: 1px solid rgb(47, 51, 54);
 }
+
+.ic_reply
+{
+    width: 100%;
+    border-top: 1px solid rgb(47, 51, 54);
+}
+
 
 .imgPost{
 

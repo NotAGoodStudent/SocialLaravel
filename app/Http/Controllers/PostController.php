@@ -18,6 +18,11 @@ class PostController extends Controller
      * @return \Illuminate\Http\RedirectResponse
      */
 
+    public function getPost($post_id)
+    {
+        return Post::where('id', '=', $post_id)->first();
+    }
+
     public function isImage($img)
     {
 

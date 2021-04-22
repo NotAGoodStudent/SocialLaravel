@@ -36,6 +36,7 @@ Route::middleware('auth')->group(function(){
     Route::get('/post/retweet/{post_id}', 'RetweetController@retweetPost')->name('retweet');
     Route::get('/post/unretweet/{post_id}', 'RetweetController@unretweetPost')->name('unretweet');
     Route::get('/topics/getTopics', 'TopicController@getTopics')->name('getTopics');
+    Route::get('/post/getPost/{post_id}', 'PostController@getPost')->name('getPost');
 });
 
 Auth::routes();
