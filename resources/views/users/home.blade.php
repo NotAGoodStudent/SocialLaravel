@@ -85,7 +85,7 @@
                             <div class="imgDiv" style="width: 100%; margin: 10px 20px;">
                                 <a class="link" href="{{ route('profile', auth()->user()->username) }}"><img class="mx-auto d-block" style="width: 100%; height: 50px; border-radius: 50%;" src="{{Storage::url(auth()->user()->pfp)}}"></a>
                             </div>
-                            <form action="{{ route('makePost', auth()->user()->id)}}" enctype="multipart/form-data" method="post">
+                            <form action="{{ route('makePost', 0)}}" enctype="multipart/form-data" method="post">
                                 <input class='buttonPost float-right' id="buttonAct" type="submit" name="" value="Post" disabled>
                                 @csrf
                                 <textarea onclick="activateArea()" id="txtarea" name="post" class="txt-area mx-auto d-block" placeholder="What are your thoughts {{auth()->user()->username}}?"></textarea>
@@ -105,7 +105,11 @@
                                     @if($p->owner == $f->id)
                                                 @foreach($users as $us)
                                                     @if($us->id == $f->id)
-                                            <div class="postL" id="postL">
+                                                        @php
+                                                        $counter = 0;
+                                                        $counter++;
+                                                        @endphp
+                                            <div class="postL" id="postL" onclick="checkReplies({{$p->id}})">
                                                         <div class="userData">
                                                             <a href="{{ route('profile', $us->username) }}"><img src="{{Storage::url($us->pfp)}}" alt=""></a>
                                                             <div class="postText">
@@ -171,15 +175,21 @@
                                                 <a class="link" href="{{ route('profile', auth()->user()->username)}}"><img style="width: 100%; height: 50px; border-radius: 50%" src="{{Storage::url(auth()->user()->pfp)}}"></a>
                                                 <p class="postUsername" style="margin-left: 70px">{{auth()->user()->username}} <span class="text-muted" style="font-size: 15px">{{'@'.auth()->user()->username}}</span></p>
                                             </div>
-                                                <textarea onclick="activateArea()" id="txtarea" name="post" class="txt-area mx-auto d-block" placeholder="Tweet your reply"></textarea>
-                                            <div class="ic_reply m-auto d-flex justify-content-around">
-                                                <span onclick="" id="iconClicked" class="imgIcon_reply fas fa-image"></span>
-                                                <input type="file" class="uploadImg" name="uploadImage" id="uploadImage" hidden>
-                                                <span onclick="" id="iconClicked2" class="imgIcon_reply fa fa-file-video"></span>
-                                                <input type="file" class="uploadGIF" id="uploadGIF" hidden>
-                                                <span onclick="" id="iconClicked3" class="imgIcon_reply fas fa-video"></span>
-                                                <input type="file" class="uploadVideo" id="uploadVideo" hidden>
-                                            </div>
+                                            <form action="{{ route('makePost', $p->id)}}" enctype="multipart/form-data" method="post">
+                                                @csrf
+                                                <textarea onclick="activateArea()" id="txtarea_reply" name="post" class="txt-area mx-auto d-block" placeholder="Tweet your reply"></textarea>
+                                                <div class="replyButton float-right" style="width: 20%">
+                                                    <input class='buttonPost' id="buttonPostReply" onclick="" type="submit" name="" value="Post">
+                                                </div>
+                                                <div class="ic_reply m-auto d-flex justify-content-around">
+                                                    <span onclick="replyUploadImg({{$p->id}})" id="iconClicked}" class="imgIcon_reply fas fa-image"></span>
+                                                    <input type="file" class="uploadImg" name="uploadImage{{$p->id}}" id="uploadImage{{$p->id}}" hidden>
+                                                    <span onclick="" id="iconClicked2" class="imgIcon_reply fa fa-file-video"></span>
+                                                    <input type="file" class="uploadGIF" id="uploadGIF" hidden>
+                                                    <span onclick="" id="iconClicked3" class="imgIcon_reply fas fa-video"></span>
+                                                    <input type="file" class="uploadVideo" id="uploadVideo" hidden>
+                                                </div>
+                                            </form>
                                         </div>
                                                         @endif
                                                 @endforeach
@@ -198,6 +208,10 @@
         </div>
         <script>
 
+            function checkReplies(id)
+            {
+                window.location.href = "/post/showReplies/"+id;
+            }
 
             function closeReply(id)
             {
@@ -209,7 +223,13 @@
                 $('#reply_to_post'+id).slideDown("slow", "linear");
             }
 
+            function replyUploadImg(id)
+            {
+                $('#uploadImage'+id).click();
+            }
+
            $(document).ready(function (){
+
 
 
                $('#iconClicked').click(function (){
@@ -271,6 +291,23 @@
                                 console.log(users[x][1])
                             }
                        }
+                   }
+               });
+
+               $('#txtarea_reply').keydown(function (){
+                   if ($.trim($("#txtarea").val()))
+                   {
+
+                       $('#buttonPostReply').removeClass('buttonPost');
+                       $('#buttonPostReply').addClass('buttonPostAct');
+                       $('#buttonPostReply').removeAttr('disabled');
+
+                   }
+                   else
+                   {
+                       $('#buttonPostReply').removeClass('buttonPostAct');
+                       $('#buttonPostReply').addClass('buttonPost');
+                       $('#buttonPostReply').attr('disabled');
                    }
                });
 

@@ -18,7 +18,6 @@ class CreateNotificationsTable extends Migration
             $table->foreignId('user_id')->constrained('users');
             $table->foreignId('notified')->constrained('users');
             $table->foreignId('post_id')->nullable()->constrained('posts');
-            $table->foreignId('comment_id')->nullable()->constrained('comments');
             $table->boolean('is_read');
             $table->boolean('isLike');
             $table->boolean('isRetweet');

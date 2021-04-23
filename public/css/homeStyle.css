@@ -328,7 +328,7 @@ textarea {
     background: none;
     display: block;
     margin: 20px 5px;
-    background: rgba(46, 204, 113, 0.4);
+    background: #0059b3;
     padding: 10px 30px;
     outline: none;
     color: rgba(255,255,255,0.4);
@@ -337,18 +337,31 @@ textarea {
 }
 
 
+
+
+
 .buttonPostAct  {
     border: 0;
     background: none;
     display: block;
     margin: 20px 5px;
-    background: rgba(46, 204, 113, 1);
+    background: #007FFF;
     padding: 10px 30px;
     outline: none;
     color: rgba(255,255,255, 1);
     border-radius: 24px;
     transition: 0.25s;
     cursor: pointer;
+}
+
+.buttonPostAct:hover
+{
+    background: #0066c1;
+}
+
+.buttonPostAct:hover
+{
+
 }
 
 .box1, .box3

@@ -1,0 +1,285 @@
+
+body
+{
+    background-color: #060606;
+}
+
+.homeTitle
+{
+    text-align: left;
+    border-right: 1px solid rgb(47, 51, 54);
+    border-left: 1px solid rgb(47, 51, 54);
+}
+
+.homeTitle > img
+{
+    margin: 10px 20px;
+}
+
+.homeTitle > h5
+{
+    color: rgb(217, 217, 217);
+    font-weight: bold;
+    margin-top: 15px;
+    margin-bottom: 10px;
+    margin-left: 10px;
+
+}
+.content
+{
+
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+.post_to_be_replied
+{
+    background-color: #060606;
+    border-top: 1px solid rgb(47, 51, 54);
+    border-right: 1px solid rgb(47, 51, 54);
+    border-left: 1px solid rgb(47, 51, 54);
+    border-bottom: 1px solid rgb(47, 51, 54);
+}
+
+.post_to_be_replied:hover{
+    background-color: #0b0b0b;
+    cursor: pointer;
+}
+
+.userData
+{
+    margin: 10px 20px;
+}
+
+.cardSug
+{
+    width: 100%;
+    background-color: #202020;
+    border-radius: 10px;
+    margin-top: 5px;
+    display: flex;
+    flex-direction: column;
+}
+
+.whotofollow_title
+{
+    width: 100%;
+
+}
+
+.whotofollow_title > h4
+{
+    color:white;
+    margin-top: 20px;
+}
+
+.suggested
+{
+    border-top: 1px solid #6c757d;
+    margin: 50px 10px;
+    height: 50px;
+}
+
+.show_more, .show_less
+{
+    color: #1f6fb2;
+    cursor: pointer;
+}
+
+.suggested_card_full
+{
+    width: 100%;
+    background-color: transparent;
+    margin-top: 5px;
+    display: flex;
+    box-shadow: 0 0 10px rgba(255,255,255, 1);
+    border-radius: 10px;
+    flex-direction: column;
+}
+
+.suggested_card_full
+{
+    margin: 50px 10px;
+}
+
+
+.followButton
+{
+    background-color: transparent;
+    border: 0;
+    display: block;
+    text-align: center;
+    border: 2px solid #007FFF;
+    padding: 10px 30px;
+    outline: none;
+    color: #007FFF;
+    border-radius: 24px;
+    transition: 0.25s;
+    cursor: pointer;
+    width: 120px;
+}
+
+.showMore
+{
+    height: 50px;
+    border-top: 1px solid #6c757d;
+    margin-top: 10px;
+    text-align: center;
+    width: 100%;
+}
+
+.imgPost{
+
+    width: 85%;
+    border-radius: 15px;
+    margin-left: 70px;
+}
+
+.showMore > a
+{
+    margin-top: 25px;
+}
+
+.userData > a > img
+{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    z-index: 1;
+    float: left;
+}
+.postUsername
+{
+    margin-right: 5px;
+    color: white;
+    font-size: 20px;
+}
+.postText
+{
+    width: 100%;
+    margin-left: 70px;
+}
+
+.postContent
+{
+    color: rgb(217, 217, 217);
+    font-size: 15px;
+    text-align: justify;
+}
+ul.social-network {
+    list-style: none;
+    display: flex;
+    margin-left: 0 !important;
+    padding: 0;
+    justify-content: space-around;
+}
+
+ul.social-network li {
+    display: inline;
+    margin: 0 5px
+}
+
+.social-circle li a {
+    display: inline-block;
+    position: relative;
+    margin: 0 auto 0 auto;
+    border-radius: 50%;
+    text-align: center;
+    width: 50px;
+    height: 50px;
+    font-size: 15px;
+}
+
+.social-circle li i {
+    margin: 0;
+    line-height: 50px;
+    text-align: center
+}
+
+.comment
+{
+    color: #6c757d;
+}
+
+.comment:hover
+{
+    background-color: #007FFF1a;
+}
+
+.comment:hover i{
+    color: #007FFF;
+}
+.retweet i
+{
+    color: #6c757d;
+}
+
+.retweet:hover {
+    background-color: #2ecc711a;
+
+}
+
+.retweet:hover i{
+    color: #2ecc71;
+}
+
+.is-retweeted i
+{
+    color: #2ecc71;
+}
+
+.like{
+    height: 50px;
+    width: 50px;
+    background-image: url('http://abs.twimg.com/a/1517453990/img/animations/web_heart_animation_edge.png');
+    background-size: 1450px 50px;
+}
+.like:hover{
+    background-position: 3.571428571428571%;
+    background-color: #ff00001a;
+}
+.is-liked{
+    background-image: url('http://abs.twimg.com/a/1517453990/img/animations/web_heart_animation_edge.png');
+    background-size: 1450px 50px;
+    animation: like 1s steps(28) forwards;
+}
+@keyframes like {
+    0%{
+        background-position: 0 0;
+    }
+    100%{
+        background-position: right;
+    }
+}
+
+.box1, .box3
+{
+    margin: 10px 130px;
+}
+
+.search_bar
+{
+    width: 100%;
+    float: right;
+    text-align: center;
+}
+
+.search
+{
+    outline: none;
+    width: 100%;
+    text-align: center;
+    background-color: #202020;
+    border-color: transparent;
+    border-radius: 24px;
+    height: 40px;
+    color: white;
+}
+
+
+.results
+{
+    float: right;
+    margin-top: 5px;
+}
+
