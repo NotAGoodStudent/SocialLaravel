@@ -109,7 +109,7 @@
                                                         $counter = 0;
                                                         $counter++;
                                                         @endphp
-                                            <div class="postL" id="postL{{$p->id}}" onclick="checkReplies({{$p->id}})">
+                                            <div class="postL" id="postL{{$p->id}}" data-id="{{$p->id}}">
                                                         <div class="userData">
                                                             <a href="{{ route('profile', $us->username) }}"><img src="{{Storage::url($us->pfp)}}" alt=""></a>
                                                             <div class="postText">
@@ -210,11 +210,9 @@
 
             function checkReplies(id)
             {
-                $('#postL'+id).click(function (e) {
-                    if (e.target !== e.currentTarget) return;
-                    window.location.href = "/post/showReplies/" + id;
-                });
+
             }
+
 
             function closeReply(id)
             {
@@ -232,7 +230,14 @@
             }
 
            $(document).ready(function (){
-
+               $('.postL').click(function (e) {
+                   let id = $(this).attr('data-id');
+                   console.log(e.target.className);
+                   if (e.target == e.currentTarget || e.target.className == 'divImg m-auto' || e.target.className == 'postText' || e.target.className == 'postContent' || e.target.className =='postUsername') {
+                       $(location).attr('href', "/post/showReplies/" + id);
+                   }
+                   else return;
+               });
 
 
                $('#iconClicked').click(function (){
