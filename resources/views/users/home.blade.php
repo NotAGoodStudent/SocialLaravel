@@ -233,7 +233,7 @@
                $('.postL').click(function (e) {
                    let id = $(this).attr('data-id');
                    console.log(e.target.className);
-                   if (e.target == e.currentTarget || e.target.className == 'divImg m-auto' || e.target.className == 'postText' || e.target.className == 'postContent' || e.target.className =='postUsername') {
+                   if (e.target == e.currentTarget || e.target.className == 'divImg m-auto' || e.target.className == 'postText' || e.target.className == 'postContent' || e.target.className =='postUsername' || e.target.className == 'social-network social-circle') {
                        $(location).attr('href', "/post/showReplies/" + id);
                    }
                    else return;
