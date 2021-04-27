@@ -27,7 +27,7 @@ Route::middleware('auth')->group(function(){
     Route::get('/users/getUsers', 'UserController@getUsers')->name('getUsers');
     Route::get('/user/updateProfile','UserController@returnModifyProfileView')->name('modifyProfile');
     Route::patch('/user/updateData/{id}','UserController@updateUserData')->name('updateUserData');
-    Route::post('/home/post/{answer_id}', 'PostController@makePost')->name('makePost');
+    Route::post('/home/post/{answer_id}/{comesFromReplyTab}', 'PostController@makePost')->name('makePost');
     Route::get('/user/profile/{username}', "UserController@returnProfile")->name('profile');
     Route::get('/user/follow/{id2}', 'UserController@followUser')->name('follow');
     Route::get('/user/unfollow/{id2}', 'UserController@unfollowUser')->name('unfollow');

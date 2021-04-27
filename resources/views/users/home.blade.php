@@ -83,9 +83,9 @@
                     <div class="thoughts">
                         <div class="textfield_container">
                             <div class="imgDiv" style="width: 100%; margin: 10px 20px;">
-                                <a class="link" href="{{ route('profile', auth()->user()->username) }}"><img class="mx-auto d-block" style="width: 100%; height: 50px; border-radius: 50%;" src="{{Storage::url(auth()->user()->pfp)}}"></a>
+                                <a class="link" href="{{ route('profile', auth()->user()->username)}}"><img class="mx-auto d-block" style="width: 100%; height: 50px; border-radius: 50%;" src="{{Storage::url(auth()->user()->pfp)}}"></a>
                             </div>
-                            <form action="{{ route('makePost', 0)}}" enctype="multipart/form-data" method="post">
+                            <form action="{{ route('makePost',['answer_id'=> 0, 'comesFromReplyTab'=>0])}}" enctype="multipart/form-data" method="post">
                                 <input class='buttonPost float-right' id="buttonAct" type="submit" name="" value="Post" disabled>
                                 @csrf
                                 <textarea onclick="activateArea()" id="txtarea" name="post" class="txt-area mx-auto d-block" placeholder="What are your thoughts {{auth()->user()->username}}?"></textarea>
@@ -109,7 +109,7 @@
                                                         $counter = 0;
                                                         $counter++;
                                                         @endphp
-                                            <div class="postL" id="postL" onclick="checkReplies({{$p->id}})">
+                                            <div class="postL" id="postL{{$p->id}}" onclick="checkReplies({{$p->id}})">
                                                         <div class="userData">
                                                             <a href="{{ route('profile', $us->username) }}"><img src="{{Storage::url($us->pfp)}}" alt=""></a>
                                                             <div class="postText">
@@ -175,7 +175,7 @@
                                                 <a class="link" href="{{ route('profile', auth()->user()->username)}}"><img style="width: 100%; height: 50px; border-radius: 50%" src="{{Storage::url(auth()->user()->pfp)}}"></a>
                                                 <p class="postUsername" style="margin-left: 70px">{{auth()->user()->username}} <span class="text-muted" style="font-size: 15px">{{'@'.auth()->user()->username}}</span></p>
                                             </div>
-                                            <form action="{{ route('makePost', $p->id)}}" enctype="multipart/form-data" method="post">
+                                            <form action="{{ route('makePost',['answer_id'=> $p->id, 'comesFromReplyTab'=>0])}}" enctype="multipart/form-data" method="post">
                                                 @csrf
                                                 <textarea onclick="activateArea()" id="txtarea_reply" name="post" class="txt-area mx-auto d-block" placeholder="Tweet your reply"></textarea>
                                                 <div class="replyButton float-right" style="width: 20%">
@@ -210,12 +210,15 @@
 
             function checkReplies(id)
             {
-                window.location.href = "/post/showReplies/"+id;
+                $('#postL'+id).click(function (e) {
+                    if (e.target !== e.currentTarget) return;
+                    window.location.href = "/post/showReplies/" + id;
+                });
             }
 
             function closeReply(id)
             {
-                    $('#reply_to_post'+id).slideUp("slow", "linear");
+                $('#reply_to_post'+id).slideUp("slow", "linear");
             }
 
             function reply(id)
