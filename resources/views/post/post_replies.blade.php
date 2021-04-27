@@ -169,7 +169,7 @@
             @foreach($replies as $re)
                 @foreach($users as $us)
                     @if($us->id == $re->owner)
-                        <div class="replies" id="postL">
+                        <div class="replies" id="postL" data-id="{{$re->id}}">
                             <div class="userData">
                                 <a href="{{ route('profile', $us->username) }}"><img src="{{Storage::url($us->pfp)}}" alt=""></a>
                                 <div class="postText">
@@ -272,10 +272,6 @@
                         $('#uploadImage'+id).click();
                     }
 
-                    function checkReplies(id)
-                    {
-                        window.location.href = "/post/showReplies/"+id;
-                    }
 
                     function closeReply(id)
                     {
@@ -341,6 +337,16 @@
                             });
                         }
                     }
+
+                    $(document).ready(function () {
+                        $('.replies').click(function (e) {
+                            let id = $(this).attr('data-id');
+                            console.log(e.target.className);
+                            if (e.target == e.currentTarget || e.target.className == 'divImg m-auto' || e.target.className == 'postText' || e.target.className == 'postContent' || e.target.className == 'postUsername' || e.target.className == 'social-network social-circle') {
+                                $(location).attr('href', "/post/showReplies/" + id);
+                            } else return;
+                        });
+                    });
 
                 </script>
 
