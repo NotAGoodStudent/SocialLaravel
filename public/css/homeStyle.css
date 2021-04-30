@@ -35,6 +35,7 @@ body
 .content
 {
 
+    top: 0;
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -50,6 +51,7 @@ body
 
 .results
 {
+    width: 100%;
     float: right;
     margin-top: 5px;
 }
@@ -334,6 +336,7 @@ textarea {
     color: rgba(255,255,255,0.4);
     border-radius: 24px;
     transition: 0.25s;
+    cursor: none;
 }
 
 
@@ -390,6 +393,12 @@ textarea {
     background-color: #0b0b0b;
     cursor: pointer;
 
+}
+
+.coincidence:hover
+{
+    background-color: #0b0b0b;
+    cursor: pointer;
 }
 
 .userData > a > img

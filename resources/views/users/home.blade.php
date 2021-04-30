@@ -201,7 +201,7 @@
               <div class="box3 col-md-3">
                 <div class="search_bar">
                     <input type="text" class="search" id="search" placeholder="Search">
-                    <div class="results" id="results" hidden>
+                    <div class="results m-auto d-flex flex-column" id="results" style="box-shadow: 0px 0px 10px rgba(255,255,255, 0.7);display: none;">
                     </div>
                 </div>
             </div>
@@ -277,50 +277,71 @@
                    dataType: "json"
                });
 
-               users = new Array()
-               {
+               users = new Array();
                    $.ajax({
                        url: 'http://localhost:3300/users/getUsers',
                        success: function (data){
-                           users = data;
-                           console.log(users[0]);
+                           users = data
                        },
                        dataType: "json"
                    });
-               }
+
+               $('#search').click(function(e) {
+                   console.log("cliCKED");
+                   e.stopPropagation();
+                   $('#search').removeClass('search');
+                   $('#search').addClass('search-active');
+                   $('#results').show();
+               });
+
+               $(document).click(function (e){
+                  if(e.target.className !== 'search-active' && e.target.className !== 'results'  && e.target.className !== 'coincidence'){
+                      console.log('LMAO');
+                      $('#search').removeClass('search-active');
+                      $('#search').addClass('search');
+                      $('#results').hide();
+                  }
+               });
+
+
 
                $('#search').keydown(function(){
 
                    {
                        if($.trim($('#search').val()))
                        {
-                            for(var x = 0; x < users.length;x++)
-                            {
-                                console.log(users[x][1])
-                            }
+                           $('#results').empty();
+                            users.forEach(function (us){
+                                if(us.username.toLowerCase().includes($('#search').val().toLowerCase()))
+                                {
+                                    let splitt = us.pfp.split('/')[3];
+                                    $(`<div class="coincidence d-flex" onclick="$(location).attr('href', '/user/profile/${us.username}')" style="border-bottom: 1px solid rgb(47, 51, 54); height: 100px"><img src="http://localhost:3300/storage/img/pfp/${splitt}" style="width: 50px; height: 50px; border-radius: 50%; margin: 25px 20px" alt=""> <p class="postUsername m-auto">${us.username}<span class="text-muted" style="font-size: 15px; margin-left: 5px">@${us.username}</span></p></div>`).appendTo($('#results'));
+                                }
+                            });
                        }
                    }
                });
 
+
                $('#txtarea_reply').keydown(function (){
-                   if ($.trim($("#txtarea").val()))
+                   if ($.trim($("#txtarea_reply").val()) && $.trim($("#txtarea_reply").val() != " "))
                    {
 
                        $('#buttonPostReply').removeClass('buttonPost');
                        $('#buttonPostReply').addClass('buttonPostAct');
-                       $('#buttonPostReply').removeAttr('disabled');
+                       $('#buttonPostReply').removeAttr("disabled");
 
                    }
                    else
                    {
                        $('#buttonPostReply').removeClass('buttonPostAct');
                        $('#buttonPostReply').addClass('buttonPost');
-                       $('#buttonPostReply').attr('disabled');
+                       $('#buttonPostReply').attr("disabled", true);
                    }
                });
 
                 $('#txtarea').keydown(function (){
-                    if ($.trim($("#txtarea").val()))
+                    if ($.trim($("#txtarea").val()) && $.trim($("#txtarea").val() != " "))
                     {
                        /* var newHTML = "";
                         if($("#txtarea:contains('#')" ))
@@ -340,10 +361,9 @@
                     }
                     else
                         {
-                            console.log('here' + " "+$(this).val().length);
                             $('#buttonAct').removeClass('buttonPostAct');
                             $('#buttonAct').addClass('buttonPost');
-                            $('#buttonAct').attr('disabled');
+                            $('#buttonAct').attr('disabled', true);
                         }
                 });
            });

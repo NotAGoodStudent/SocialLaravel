@@ -173,7 +173,7 @@
                             <div class="userData">
                                 <a href="{{ route('profile', $us->username) }}"><img src="{{Storage::url($us->pfp)}}" alt=""></a>
                                 <div class="postText">
-                                    <p class="postUsername">{{$us->username}} <span class="text-muted" style="font-size: 15px">{{'@'.$us->username}} . {{$post->created_at->diffForHumans()}}</span></p>
+                                    <p class="postUsername">{{$us->username}} <span class="text-muted" style="font-size: 15px">{{'@'.$us->username}} . {{$re->created_at->diffForHumans()}}</span></p>
                                     <p class="postContent">{{$re->content}}</p>
                                 </div>
                                 @if($re->image != null)

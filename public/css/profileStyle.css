@@ -58,7 +58,7 @@ body
     border: 0;
     display: block;
     text-align: center;
-    border: 2px solid #2ecc71;
+    border: 2px solid #007FFF;
     padding: 14px 40px;
     outline: none;
     color: white;
@@ -127,7 +127,7 @@ body
 {
     text-decoration: none;
     color: white;
-    background: #2ecc71
+    background: #007FFF
 }
  .options
 {
@@ -157,8 +157,8 @@ body
 .links:hover, .linkSelected:hover
 {
     text-decoration: none;
-    border-bottom: 1px solid #2ecc71;
-    color: #2ecc71;
+    border-bottom: 1px solid #007FFF;
+    color: #007FFF;
 
 }
 
@@ -170,8 +170,8 @@ body
     padding: 14px 40px;
     transition: all ease 500ms;
     text-decoration: none;
-    border-bottom: 1px solid #2ecc71;
-    color: #2ecc71;
+    border-bottom: 1px solid #007FFF;
+    color: #007FFF;
 }
 
 .data
