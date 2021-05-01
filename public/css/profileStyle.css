@@ -191,6 +191,186 @@ body
     border-bottom: 1px solid rgb(47, 51, 54);
 }
 
+.postP:hover, .postL:hover, .postR:hover{
+    background-color: #0b0b0b;
+    cursor: pointer;
+
+}
+
+.reply_to_post{
+    background-color: #060606;
+    border-right: 1px solid rgb(47, 51, 54);
+    border-left: 1px solid rgb(47, 51, 54);
+    border-bottom: 1px solid rgb(47, 51, 54);
+}
+
+.reply_to_post{
+    background-color: #060606;
+    width: 100%;
+    border-right: 1px solid rgb(47, 51, 54);
+    border-left: 1px solid rgb(47, 51, 54);
+    border-bottom: 1px solid rgb(47, 51, 54);
+}
+
+
+.close_reply_div
+{
+    font-size: 25px;
+    text-decoration: none;
+    color: #007FFF;
+}
+
+.close_reply_div:hover
+{
+    text-decoration: none;
+    color: #0066c1;
+    cursor: pointer;
+}
+.imgIcon
+{
+    color: #007FFF;
+    font-size: 3vh;
+    margin: 10px 20px;
+}
+.imgIcon:hover
+{
+    cursor: pointer;
+    color: #0066c1;
+}
+
+.imgIcon_reply
+{
+    color: #007FFF;
+    font-size: 2vh;
+    margin: 10px 20px;
+}
+.imgIcon_reply:hover
+{
+    cursor: pointer;
+    color: #0066c1;
+}
+
+.link
+{
+    margin: 10px 5px;
+    cursor: pointer;
+    width: 50px;
+    float: left;
+}
+
+.txt-area
+{
+    width: 100%;
+    height: 150px;
+    background-color: transparent;
+    color: rgb(217, 217, 217);
+    transition: 0.25s;
+    overflow: hidden;
+    font-size: 20px;
+}
+
+.txt-area-active
+{
+    width: 100%;
+    height: 150px;
+    background-color: transparent;
+    color: rgb(217, 217, 217);
+    transition: 0.25s;
+    overflow: hidden;
+    font-size: 20px;
+}
+
+.buttonPost  {
+    border: 0;
+    background: none;
+    display: block;
+    margin: 20px 5px;
+    background: #0059b3;
+    padding: 10px 30px;
+    outline: none;
+    color: rgba(255,255,255,0.4);
+    border-radius: 24px;
+    transition: 0.25s;
+}
+
+
+textarea {
+    border: none;
+    overflow: hidden;
+    outline: none;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    resize: none; /*remove the resize handle on the bottom right*/
+}
+
+
+.txt-area
+{
+    width: 100%;
+    height: 150px;
+    background-color: transparent;
+    color: rgb(217, 217, 217);
+    transition: 0.25s;
+    overflow: hidden;
+    font-size: 20px;
+}
+
+.txt-area-active
+{
+    width: 100%;
+    height: 150px;
+    background-color: transparent;
+    color: rgb(217, 217, 217);
+    transition: 0.25s;
+    overflow: hidden;
+    font-size: 20px;
+}
+
+.ic_reply
+{
+    width: 100%;
+    border-top: 1px solid rgb(47, 51, 54);
+}
+
+.buttonPost  {
+    border: 0;
+    background: none;
+    display: block;
+    margin: 20px 5px;
+    background: #0059b3;
+    padding: 10px 30px;
+    outline: none;
+    color: rgba(255,255,255,0.4);
+    border-radius: 24px;
+    transition: 0.25s;
+    cursor: none;
+}
+
+
+
+
+
+.buttonPostAct  {
+    border: 0;
+    background: none;
+    display: block;
+    margin: 20px 5px;
+    background: #007FFF;
+    padding: 10px 30px;
+    outline: none;
+    color: rgba(255,255,255, 1);
+    border-radius: 24px;
+    transition: 0.25s;
+    cursor: pointer;
+}
+
+.buttonPostAct:hover
+{
+    background: #0066c1;
+}
+
+
 .userData > a > img
 {
     width: 50px;

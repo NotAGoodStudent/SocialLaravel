@@ -67,7 +67,7 @@
                 <div style=" margin-top: 50px;border-bottom: 1px solid rgb(47, 51, 54); text-align: center"></div>
                 <div class="data m-auto d-flex flex-column" id="myPostsP">
                     @foreach($user->posts as $p)
-                        <div class="postP col-md-4 m-auto">
+                        <div class="postP col-md-4 m-auto" data-id="{{$p->id}}">
                             <div class="userData">
                                 <a><img src="{{Storage::url($user->pfp)}}"></a>
                                 <div class="postText">
@@ -82,7 +82,7 @@
                             </div>
                             <div class="hideIconsP col-md-12">
                                 <ul class="social-network social-circle">
-                                    <li><a class="comment"><i class="far fa-comment"></i></a></li>
+                                    <li><a class="comment"  onclick="replyP({{$p->id}})"><i class="far fa-comment"></i></a></li>
                                     <!--CHECK IF POST IS RETWEETED BY CURRENT USER-->
                                     @if(count($p->retweets) > 0)
                                         @php
@@ -128,6 +128,30 @@
                                 </ul>
                             </div>
                         </div>
+                        <div class="reply_to_post col-md-4 m-auto" id="reply_to_postP{{$p->id}}" style="display: none">
+                            <div class="reply_data d-inline-block justify-content-around" style="width: 100%; margin: 10px 20px">
+                                <div style="width: 10%" class="float-right">
+                                    <a onclick="closeReplyP({{$p->id}})" class="close_reply_div fas fa-times"></a>
+                                </div>
+                                <a class="link" href="{{ route('profile', auth()->user()->username)}}"><img style="width: 50px; height: 50px; border-radius: 50%" src="{{Storage::url(auth()->user()->pfp)}}"></a>
+                                <p class="postUsername" style="margin-left: 70px">{{auth()->user()->username}} <span class="text-muted" style="font-size: 15px">{{'@'.auth()->user()->username}}</span></p>
+                            </div>
+                            <form action="{{ route('makePost',['answer_id'=> $p->id, 'comesFromReplyTab'=>0])}}" enctype="multipart/form-data" method="post">
+                                @csrf
+                                <textarea onclick="activateArea()" id="txtarea_reply" name="post" class="txt-area mx-auto d-block" placeholder="Tweet your reply"></textarea>
+                                <div class="replyButton float-right" style="width: 20%">
+                                    <input class='buttonPost' id="buttonPostReply" onclick="" type="submit" name="" value="Post">
+                                </div>
+                                <div class="ic_reply m-auto d-flex justify-content-around">
+                                    <span onclick="replyUploadImgP({{$p->id}})" id="iconClicked}" class="imgIcon_reply fas fa-image"></span>
+                                    <input type="file" class="uploadImg" name="uploadImageP{{$p->id}}" id="uploadImage{{$p->id}}" hidden>
+                                    <span onclick="" id="iconClicked2" class="imgIcon_reply fa fa-file-video"></span>
+                                    <input type="file" class="uploadGIF" id="uploadGIF" hidden>
+                                    <span onclick="" id="iconClicked3" class="imgIcon_reply fas fa-video"></span>
+                                    <input type="file" class="uploadVideo" id="uploadVideo" hidden>
+                                </div>
+                            </form>
+                        </div>
                     @endforeach
                 </div>
 <!--                HIDDEN UNTIL LIKE IS CLICKED-->
@@ -142,7 +166,7 @@
 
                                         @foreach($p->likes as $l)
                                              @if($l->user_id == $user->id)
-                                            <div class="postL m-auto col-md-4" style="display: none">
+                                            <div class="postL m-auto col-md-4" data-id="{{$p->id}}" style="display: none">
                                                 <div class="userData">
                                                         @foreach($users as $us)
                                                             @foreach($us->posts as $po)
@@ -163,7 +187,7 @@
                                                 </div>
                                                 <div class="hideIconsL col-md-12" style="display: none">
                                                     <ul class="social-network social-circle">
-                                                        <li><a class="comment"><i class="far fa-comment"></i></a></li>
+                                                        <li><a class="comment" onclick="replyL({{$p->id}})"><i class="far fa-comment"></i></a></li>
                                                 @if(count($p->retweets) > 0)
                                                     @php
                                                         $retweeted = false;
@@ -189,6 +213,30 @@
                                                     </ul>
                                                 </div>
                                             </div>
+                                                <div class="reply_to_post" id="reply_to_postL{{$p->id}}" style="display: none">
+                                                    <div class="reply_data d-inline-block justify-content-around" style="width: 100%; margin: 10px 20px">
+                                                        <div style="width: 10%" class="float-right">
+                                                            <a onclick="closeReplyL({{$p->id}})" class="close_reply_div fas fa-times"></a>
+                                                        </div>
+                                                        <a class="link" href="{{ route('profile', auth()->user()->username)}}"><img style="width: 50px; height: 50px; border-radius: 50%" src="{{Storage::url(auth()->user()->pfp)}}"></a>
+                                                        <p class="postUsername" style="margin-left: 70px">{{auth()->user()->username}} <span class="text-muted" style="font-size: 15px">{{'@'.auth()->user()->username}}</span></p>
+                                                    </div>
+                                                    <form action="{{ route('makePost',['answer_id'=> $p->id, 'comesFromReplyTab'=>0])}}" enctype="multipart/form-data" method="post">
+                                                        @csrf
+                                                        <textarea onclick="activateArea()" id="txtarea_reply" name="post" class="txt-area mx-auto d-block" placeholder="Tweet your reply"></textarea>
+                                                        <div class="replyButton float-right" style="width: 20%">
+                                                            <input class='buttonPost' id="buttonPostReply" onclick="" type="submit" name="" value="Post">
+                                                        </div>
+                                                        <div class="ic_reply m-auto d-flex justify-content-around">
+                                                            <span onclick="replyUploadImgL({{$p->id}})" id="iconClicked}" class="imgIcon_reply fas fa-image"></span>
+                                                            <input type="file" class="uploadImg" name="uploadImageL{{$p->id}}" id="uploadImage{{$p->id}}" hidden>
+                                                            <span onclick="" id="iconClicked2" class="imgIcon_reply fa fa-file-video"></span>
+                                                            <input type="file" class="uploadGIF" id="uploadGIF" hidden>
+                                                            <span onclick="" id="iconClicked3" class="imgIcon_reply fas fa-video"></span>
+                                                            <input type="file" class="uploadVideo" id="uploadVideo" hidden>
+                                                        </div>
+                                                    </form>
+                                                </div>
                                     @endif
                     @endforeach
                 </div>
@@ -205,7 +253,7 @@
 
                         @foreach($p->retweets as $r)
                             @if($r->user_id == $user->id)
-                                <div class="postR m-auto col-md-4" style="display: none">
+                                <div class="postR m-auto col-md-4" data-id="{{$p->id}}" style="display: none">
                                     <div class="userData">
                                         @foreach($users as $us)
                                                 @foreach($us->posts as $po)
@@ -226,7 +274,7 @@
                                     </div>
                                     <div class="hideIconsR col-md-12" style="display: none">
                                         <ul class="social-network social-circle">
-                                            <li><a class="comment"><i class="far fa-comment"></i></a></li>
+                                            <li><a class="comment"  onclick="replyR({{$p->id}})"><i class="far fa-comment"></i></a></li>
                                             <li><a class="is-retweeted" id="rr{{$p->id}}" onclick="retweetR({{$p->id}})"><span class="text-muted">{{count($p->retweets)}}</span><i class="fas fa-retweet"></i></a></li>
                                             @if(count($p->likes) > 0)
                                                 @php
@@ -250,6 +298,30 @@
                                         </ul>
                                     </div>
                                 </div>
+                                <div class="reply_to_post" id="reply_to_postR{{$p->id}}" style="display: none">
+                                    <div class="reply_data d-inline-block justify-content-around" style="width: 100%; margin: 10px 20px">
+                                        <div style="width: 10%" class="float-right">
+                                            <a onclick="closeReplyR({{$p->id}})" class="close_reply_div fas fa-times"></a>
+                                        </div>
+                                        <a class="link" href="{{ route('profile', auth()->user()->username)}}"><img style="width: 50px; height: 50px; border-radius: 50%" src="{{Storage::url(auth()->user()->pfp)}}"></a>
+                                        <p class="postUsername" style="margin-left: 70px">{{auth()->user()->username}} <span class="text-muted" style="font-size: 15px">{{'@'.auth()->user()->username}}</span></p>
+                                    </div>
+                                    <form action="{{ route('makePost',['answer_id'=> $p->id, 'comesFromReplyTab'=>0])}}" enctype="multipart/form-data" method="post">
+                                        @csrf
+                                        <textarea onclick="activateArea()" id="txtarea_reply" name="post" class="txt-area mx-auto d-block" placeholder="Tweet your reply"></textarea>
+                                        <div class="replyButton float-right" style="width: 20%">
+                                            <input class='buttonPost' id="buttonPostReply" onclick="" type="submit" name="" value="Post">
+                                        </div>
+                                        <div class="ic_reply m-auto d-flex justify-content-around">
+                                            <span onclick="replyUploadImgR({{$p->id}})" id="iconClicked}" class="imgIcon_reply fas fa-image"></span>
+                                            <input type="file" class="uploadImg" name="uploadImageR{{$p->id}}" id="uploadImage{{$p->id}}" hidden>
+                                            <span onclick="" id="iconClicked2" class="imgIcon_reply fa fa-file-video"></span>
+                                            <input type="file" class="uploadGIF" id="uploadGIF" hidden>
+                                            <span onclick="" id="iconClicked3" class="imgIcon_reply fas fa-video"></span>
+                                            <input type="file" class="uploadVideo" id="uploadVideo" hidden>
+                                        </div>
+                                    </form>
+                                </div>
                                             @endif
                                             @endforeach
                                             @endif
@@ -262,6 +334,67 @@
     </div>
     <script>
 
+        function closeReplyP(id)
+        {
+            $('#reply_to_postP'+id).slideUp("slow", "linear");
+        }
+
+        function closeReplyL(id)
+        {
+            $('#reply_to_postL'+id).slideUp("slow", "linear");
+        }
+
+        function closeReplyR(id)
+        {
+            $('#reply_to_postR'+id).slideUp("slow", "linear");
+        }
+
+        function replyP(id)
+        {
+            $('#reply_to_postP'+id).slideDown("slow", "linear");
+        }
+
+        function replyR(id)
+        {
+            $('#reply_to_postP'+id).slideDown("slow", "linear");
+        }
+
+        function replyL(id)
+        {
+            $('#reply_to_postP'+id).slideDown("slow", "linear");
+        }
+
+
+
+        $(document).ready(function (){
+            $('.postL').click(function (e) {
+                let id = $(this).attr('data-id');
+                console.log(e.target.className);
+                if (e.target == e.currentTarget || e.target.className == 'userData' || e.target.className == 'divImg' || e.target.className == 'postText' || e.target.className == 'postContent' || e.target.className =='postUsername' || e.target.className == 'social-network social-circle') {
+                    $(location).attr('href', "/post/showReplies/" + id);
+                }
+                else return;
+            });
+
+            $('.postP').click(function (e) {
+                let id = $(this).attr('data-id');
+                console.log(e.target.className);
+                if (e.target == e.currentTarget || e.target.className == 'userData' || e.target.className == 'divImg' || e.target.className == 'postText' || e.target.className == 'postContent' || e.target.className =='postUsername' || e.target.className == 'social-network social-circle') {
+                    $(location).attr('href', "/post/showReplies/" + id);
+                }
+                else return;
+            });
+
+            $('.postR').click(function (e) {
+                let id = $(this).attr('data-id');
+                console.log(e.target.className);
+                if (e.target == e.currentTarget || e.target.className == 'userData' || e.target.className == 'divImg' || e.target.className == 'postText' || e.target.className == 'postContent' || e.target.className =='postUsername' || e.target.className == 'social-network social-circle') {
+                    $(location).attr('href', "/post/showReplies/" + id);
+                }
+                else return;
+            });
+
+        });
         function showPosts()
         {
             $("#retweetsLink").removeClass('linkSelected');

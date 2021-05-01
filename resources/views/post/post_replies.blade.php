@@ -238,12 +238,12 @@
                                 </div>
                                 <form action="{{ route('makePost',['answer_id'=> $re->id, 'comesFromReplyTab' => 1])}}" enctype="multipart/form-data" method="post">
                                     @csrf
-                                    <textarea onclick="activateArea()" id="txtarea_reply" name="post" class="txt-area mx-auto d-block" placeholder="Tweet your reply"></textarea>
+                                    <textarea data-id="{{$re->id}}" id="txtarea_reply{{$re->id}}" name="post" class="txt-area" placeholder="Tweet your reply"></textarea>
                                     <div class="replyButton float-right" style="width: 20%">
-                                        <input class='buttonPost' id="buttonPostReply" onclick="" type="submit" name="" value="Post">
+                                        <input class='buttonPost' id="buttonPostReply{{$re->id}}" onclick="" type="submit" name="" value="Post">
                                     </div>
                                     <div class="ic_reply m-auto d-flex justify-content-around">
-                                        <span onclick="replyUploadImg({{$re->id}})" id="iconClicked}" class="imgIcon_reply fas fa-image"></span>
+                                        <span onclick="replyUploadImg({{$re->id}})" id="iconClicked" class="imgIcon_reply fas fa-image"></span>
                                         <input type="file" class="uploadImg" name="uploadImage{{$re->id}}" id="uploadImage{{$re->id}}" hidden>
                                         <span onclick="" id="iconClicked2" class="imgIcon_reply fa fa-file-video"></span>
                                         <input type="file" class="uploadGIF" id="uploadGIF" hidden>
@@ -267,6 +267,83 @@
     </div>
                 <script>
 
+
+                    $(document).ready(function (){
+                        topics = new Array();
+                        $.ajax({
+                            url: 'http://localhost:3300/topics/getTopics',
+                            success: function (data){
+                                topics = data;
+                                console.log(topics[0]);
+                            },
+                            dataType: "json"
+                        });
+
+                        users = new Array();
+                        $.ajax({
+                            url: 'http://localhost:3300/users/getUsers',
+                            success: function (data){
+                                users = data
+                            },
+                            dataType: "json"
+                        });
+
+                        $('#search').click(function(e) {
+                            console.log("cliCKED");
+                            e.stopPropagation();
+                            $('#search').removeClass('search');
+                            $('#search').addClass('search-active');
+                            $('#results').show();
+                        });
+
+                        $(document).click(function (e){
+                            if(e.target.className !== 'search-active' && e.target.className !== 'results'  && e.target.className !== 'coincidence'){
+                                console.log('LMAO');
+                                $('#search').removeClass('search-active');
+                                $('#search').addClass('search');
+                                $('#results').hide();
+                            }
+                        });
+
+
+
+                        $('#search').keydown(function(){
+
+                            {
+                                if($.trim($('#search').val()))
+                                {
+                                    $('#results').empty();
+                                    users.forEach(function (us){
+                                        if(us.username.toLowerCase().includes($('#search').val().toLowerCase()))
+                                        {
+                                            let splitt = us.pfp.split('/')[3];
+                                            $(`<div class="coincidence d-flex" onclick="$(location).attr('href', '/user/profile/${us.username}')" style="border-bottom: 1px solid rgb(47, 51, 54); height: 100px"><img src="http://localhost:3300/storage/img/pfp/${splitt}" style="width: 50px; height: 50px; border-radius: 50%; margin: 25px 20px" alt=""> <p class="postUsername m-auto">${us.username}<span class="text-muted" style="font-size: 15px; margin-left: 5px">@${us.username}</span></p></div>`).appendTo($('#results'));
+                                        }
+                                    });
+                                }
+                            }
+                        });
+
+
+                            $('.txt-area').click(function () {
+                                let id = $(this).attr('data-id');
+                                $('#txtarea_reply'+id).keydown(function (){
+                                    console.log('here');
+                                    if ($.trim($("#txtarea_reply"+id).val()) && $.trim($("#txtarea_reply"+id).val() !== " ")) {
+                                        $('#buttonPostReply'+id).removeClass('buttonPost');
+                                        $('#buttonPostReply'+id).addClass('buttonPostAct');
+                                        $('#buttonPostReply'+id).removeAttr("disabled");
+                                } else {
+                                    $('#buttonPostReply'+id).removeClass('buttonPostAct');
+                                    $('#buttonPostReply'+id).addClass('buttonPost');
+                                    $('#buttonPostReply'+id).attr("disabled", true);
+                                }
+                                });
+                            });
+
+
+
+                    });
                     function replyUploadImg(id)
                     {
                         $('#uploadImage'+id).click();
@@ -275,12 +352,14 @@
 
                     function closeReply(id)
                     {
+                        $('#txtarea_reply'+id).val() === '';
                         $('#reply_to_post'+id).slideUp("slow", "linear");
                     }
 
                     function reply(id)
                     {
                         $('#reply_to_post'+id).slideDown("slow", "linear");
+
                     }
 
                     function retweet(id)
@@ -337,16 +416,6 @@
                             });
                         }
                     }
-
-                    $(document).ready(function () {
-                        $('.replies').click(function (e) {
-                            let id = $(this).attr('data-id');
-                            console.log(e.target.className);
-                            if (e.target == e.currentTarget || e.target.className == 'divImg m-auto' || e.target.className == 'postText' || e.target.className == 'postContent' || e.target.className == 'postUsername' || e.target.className == 'social-network social-circle') {
-                                $(location).attr('href', "/post/showReplies/" + id);
-                            } else return;
-                        });
-                    });
 
                 </script>
 

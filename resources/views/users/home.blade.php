@@ -177,9 +177,9 @@
                                             </div>
                                             <form action="{{ route('makePost',['answer_id'=> $p->id, 'comesFromReplyTab'=>0])}}" enctype="multipart/form-data" method="post">
                                                 @csrf
-                                                <textarea onclick="activateArea()" id="txtarea_reply" name="post" class="txt-area mx-auto d-block" placeholder="Tweet your reply"></textarea>
+                                                <textarea data-id="{{$p->id}}" id="txtarea_reply{{$p->id}}" name="post" class="txt-area" placeholder="Tweet your reply"></textarea>
                                                 <div class="replyButton float-right" style="width: 20%">
-                                                    <input class='buttonPost' id="buttonPostReply" onclick="" type="submit" name="" value="Post">
+                                                    <input class='buttonPost' id="buttonPostReply{{$p->id}}" onclick="" type="submit" name="" value="Post">
                                                 </div>
                                                 <div class="ic_reply m-auto d-flex justify-content-around">
                                                     <span onclick="replyUploadImg({{$p->id}})" id="iconClicked}" class="imgIcon_reply fas fa-image"></span>
@@ -322,22 +322,20 @@
                    }
                });
 
-
-               $('#txtarea_reply').keydown(function (){
-                   if ($.trim($("#txtarea_reply").val()) && $.trim($("#txtarea_reply").val() != " "))
-                   {
-
-                       $('#buttonPostReply').removeClass('buttonPost');
-                       $('#buttonPostReply').addClass('buttonPostAct');
-                       $('#buttonPostReply').removeAttr("disabled");
-
-                   }
-                   else
-                   {
-                       $('#buttonPostReply').removeClass('buttonPostAct');
-                       $('#buttonPostReply').addClass('buttonPost');
-                       $('#buttonPostReply').attr("disabled", true);
-                   }
+               $('.txt-area').click(function () {
+                   let id = $(this).attr('data-id');
+                   $('#txtarea_reply'+id).keydown(function (){
+                       console.log('here');
+                       if ($.trim($("#txtarea_reply"+id).val()) && $.trim($("#txtarea_reply"+id).val() !== " ")) {
+                           $('#buttonPostReply'+id).removeClass('buttonPost');
+                           $('#buttonPostReply'+id).addClass('buttonPostAct');
+                           $('#buttonPostReply'+id).removeAttr("disabled");
+                       } else {
+                           $('#buttonPostReply'+id).removeClass('buttonPostAct');
+                           $('#buttonPostReply'+id).addClass('buttonPost');
+                           $('#buttonPostReply'+id).attr("disabled", true);
+                       }
+                   });
                });
 
                 $('#txtarea').keydown(function (){
